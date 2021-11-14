@@ -55,69 +55,79 @@ class ChatApp extends StatefulWidget {
 }
 
 class _ChatAppState extends State<ChatApp> {
-  //
-  // int thememode = 1;
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
-  // starting()async{
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   if(pref.getInt("thememode")!=null ){
-  //     thememode = pref.getInt("thememode");
-  //   }else{
-  //     pref.setInt("thememode", thememode );
-  //   }
-  //   setState(() {
-  //
-  //   });
-  //
-  // }
-  // toggletheme()async{
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   if(pref.getInt("thememode")==1 ){
-  //     pref.setInt("thememode", 0 );
-  //     thememode = 0;
-  //   }else{
-  //     pref.setInt("thememode", 1 );
-  //     thememode = 1;
-  //   }
-  //   setState(() {
-  //
-  //   });
-  // }
+
+  static final ValueNotifier<ThemeMode> themeNotifier =
+  ValueNotifier(ThemeMode.light);
+
+  int thememode = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  starting()async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if(pref.getInt("thememode")!=null ){
+      thememode = pref.getInt("thememode");
+    }else{
+      pref.setInt("thememode", thememode );
+    }
+    setState(() {
+
+    });
+
+  }
+  toggletheme()async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if(pref.getInt("thememode")==1 ){
+      pref.setInt("thememode", 0 );
+      thememode = 0;
+    }else{
+      pref.setInt("thememode", 1 );
+      thememode = 1;
+    }
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:RegistrationScreen(
-        // togglecall: toggletheme,
+      home:SettingsScreen(
+        togglecall: toggletheme,
       ),
-    //   theme: ThemeData(
-    //     primaryColor: Colors.blueAccent,
-    //     cardColor: Colors.lightBlueAccent
-    //       ),
-    // darkTheme: ThemeData.dark().copyWith(
-    //     // brightness: Brightness.dark,
-    //     primaryIconTheme: IconThemeData(
-    //       color: Colors.white,
-    //     ),
-    //     iconTheme: IconThemeData(
-    //       color: Colors.white,
-    //     ),
-    //     primaryColor: Colors.black45,
-    //     accentColor: Colors.black,
-    //     cardColor: Colors.black,
-    //     // buttonTheme: ButtonThemeData(
-    //     //   buttonColor: Colors.white,
-    //     // ),
-    //     textTheme: TextTheme(
-    //     title: TextStyle(color: Colors.black),
-    //   ),
-    //       ),
-    // themeMode: thememode==1? ThemeMode.dark:ThemeMode.light,
+      theme: ThemeData(
+        primaryColor: Colors.blueAccent,
+        cardColor: Colors.lightBlueAccent
+          ),
+    darkTheme: ThemeData.dark().copyWith(
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle:TextStyle(
+        color: Colors.white,
+          ),
+      ),
+         hintColor: Colors.black,
+        brightness: Brightness.dark,
+        primaryIconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        primaryColor: Colors.black45,
+        accentColor: Colors.black,
+        cardColor: Colors.black,
+        // buttonTheme: ButtonThemeData(
+        //   buttonColor: Colors.white,
+        // ),
+        textTheme: TextTheme(
+        title: TextStyle(color: Colors.white),
+      ),
+          ),
+    themeMode: thememode==1? ThemeMode.dark:ThemeMode.light,
     );
   }
 }

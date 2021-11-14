@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_badbadoo/Component/AccountInfoWidget.dart';
-
+import 'package:whisper_badbadoo/View/HelpCenter/FAQsScreen.dart';
+import 'package:whisper_badbadoo/View/HelpCenter/TermsAndConditionScreen.dart';
 
 class HelpCenterScreen extends StatefulWidget {
-
-
   @override
   _HelpCenterScreenState createState() => _HelpCenterScreenState();
 }
@@ -14,15 +12,16 @@ class HelpCenterScreen extends StatefulWidget {
 class _HelpCenterScreenState extends State<HelpCenterScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
-          "Help",
+          "Help Center",
           style: GoogleFonts.lato(
               fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
         ),
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
@@ -36,10 +35,40 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            AccountInfoWidget(
-              selectIcon: Icons.live_help_rounded,
-              settingText: "Help Center",
-              firstSubtext: "Send a report mail",
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TermsAndConditionScreen()));
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: AccountInfoWidget(
+                  selectIcon: Icons.policy_rounded,
+                  settingText: "Terms and Conditions",
+                  firstSubtext: "Policy",
+                ),
+              ),
+            ),
+            Divider(
+              color: Colors.black38,
+              endIndent: 20,
+              indent: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FAQsScreen()));
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: AccountInfoWidget(
+                  selectIcon: Icons.announcement_rounded,
+                  settingText: "FAQs",
+                  firstSubtext: "Answers",
+                ),
+              ),
             ),
             Divider(
               color: Colors.black38,
@@ -56,9 +85,6 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               endIndent: 20,
               indent: 20,
             ),
-
-
-
           ],
         ),
       ),

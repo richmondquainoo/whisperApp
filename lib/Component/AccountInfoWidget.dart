@@ -7,6 +7,7 @@ class AccountInfoWidget extends StatelessWidget {
   final String firstSubtext;
   final String secondSubText;
   final String thirdSubText;
+  final Color userColor;
 
   const AccountInfoWidget(
       {@required this.selectIcon,
@@ -14,6 +15,7 @@ class AccountInfoWidget extends StatelessWidget {
       this.firstSubtext,
       this.secondSubText,
       this.thirdSubText,
+      this.userColor,
       });
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class AccountInfoWidget extends StatelessWidget {
                       children: [
                         Container(
                           child: Text(
-                           firstSubtext!= null ? firstSubtext : "Password",
+                           firstSubtext!= null ? firstSubtext : "",
                             style: GoogleFonts.lato(
                               fontSize: 11,
                               fontWeight: FontWeight.w300,

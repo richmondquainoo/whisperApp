@@ -1,5 +1,5 @@
-
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,26 +9,24 @@ import 'package:whisper_badbadoo/Component/TextButtonComponent.dart';
 import 'package:whisper_badbadoo/Util/NetworkUtility.dart';
 import 'package:whisper_badbadoo/Util/Utility.dart';
 import 'package:whisper_badbadoo/Util/paths.dart';
-import 'package:whisper_badbadoo/View/Login/LoginScreen.dart';
 import 'package:whisper_badbadoo/View/Otp/OtpScreen.dart';
 import 'package:whisper_badbadoo/model/OtpModel.dart';
 
+class ChangePassword extends StatefulWidget {
 
-class RegistrationScreen extends StatefulWidget {
-  var togglecall;
-  RegistrationScreen({this.togglecall});
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _ChangePasswordState createState() => _ChangePasswordState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
-  var fullNameController = TextEditingController();
-  var phoneController = TextEditingController();
-  var emailController = TextEditingController();
+class _ChangePasswordState extends State<ChangePassword> {
+  var oldPasswordController = TextEditingController();
+  var newPasswordController = TextEditingController();
+  var repeatPasswordController = TextEditingController();
 
-  String fullName;
-  String email;
-  String phone;
+
+  String oldPassword;
+  String newPassword;
+  String repeatPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -43,35 +41,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 25,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                    // IconButton(
-                    //   icon: Icon(Icons.wb_sunny_rounded),
-                    //   onPressed: widget.togglecall,
-                    // ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ));
+                      onTap: (){
+                        Navigator.pop(context);
                       },
                       child: Container(
-                        child: Text(
-                          "Log In",
-                          style: GoogleFonts.lato(
-                              color: Colors.blueAccent,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600),
+                        child: Icon(
+                          Icons.arrow_back_ios_outlined,
+                          size: 25,
+                          color: Colors.blueAccent,
                         ),
                       ),
                     ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     Navigator.pop(context);
+                    //   },
+                    //   child: Container(
+                    //     child: Text(
+                    //       "Change Password",
+                    //       style: GoogleFonts.lato(
+                    //           color: Colors.blueAccent,
+                    //           fontSize: 20,
+                    //           fontWeight: FontWeight.w600),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(height: 50),
@@ -105,12 +100,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               10.0)), // set rounded corner radius
                         ),
                         child: TextField(
-                          controller: fullNameController,
+                          style: TextStyle(color: Colors.black),
+                          obscureText: true,
+                          controller: oldPasswordController,
                           onChanged: (value) {
-                            fullName = value;
+                            oldPassword = value;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Full Name',
+                            hintText: 'Old Pin',
                             border: InputBorder.none,
                           ),
                         ),
@@ -131,12 +128,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               10.0)), // set rounded corner radius
                         ),
                         child: TextField(
-                          controller: phoneController,
+                          style: TextStyle(color: Colors.black),
+                          obscureText: true,
+                          controller: newPasswordController,
                           onChanged: (value) {
-                            phone = value;
+                            newPassword = value;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Phone',
+                            // fillColor: Colors.grey,
+                            // filled: true,
+                            hintText: 'New Pin',
                             border: InputBorder.none,
                           ),
                         ),
@@ -157,12 +158,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               10.0)), // set rounded corner radius
                         ),
                         child: TextField(
-                          controller: emailController,
+                          style: TextStyle(color: Colors.black),
+                          obscureText: true,
+                          controller: repeatPasswordController,
                           onChanged: (value) {
-                            email = value;
+                            repeatPassword = value;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Email',
+                            hintText: 'Repeat Pin',
                             border: InputBorder.none,
                           ),
                         ),
@@ -171,15 +174,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         height: 50,
                       ),
                       TextButtonComponent(
-                        label: "Register",
+                        label: "Done",
                         onTap: () {
                           bool canProceed = isValidEntries(context);
                           if (canProceed) {
                             OTPModel model = OTPModel(
-                              name: fullName,
-                              email: email,
+                              // name: fullName,
+                              // email: email,
                               // pin: pin,
-                              phone: phone,
                             );
                             new UtilityService().confirmationBox(
                                 title: 'Confirmation',
@@ -200,36 +202,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         },
                         labelColor: Colors.blueAccent,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Container(
-                          child: Align(
-                            alignment: FractionalOffset.bottomCenter,
-                            child: Column(
-                              children: [
-                                Divider(
-                                  thickness: 0.3,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Center(
-                                  child: Container(
-                                    child: Text(
-                                      'Version 1.1.0',
-                                      style: GoogleFonts.lato(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.blueAccent),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(30.0),
+                      //   child: Container(
+                      //     child: Align(
+                      //       alignment: FractionalOffset.bottomCenter,
+                      //       child: Column(
+                      //         children: [
+                      //           Divider(
+                      //             thickness: 0.3,
+                      //             color: Colors.white,
+                      //           ),
+                      //           SizedBox(
+                      //             height: 6,
+                      //           ),
+                      //           Center(
+                      //             child: Container(
+                      //               child: Text(
+                      //                 'Version 1.1.0',
+                      //                 style: GoogleFonts.lato(
+                      //                     fontSize: 13,
+                      //                     fontWeight: FontWeight.w400,
+                      //                     color: Colors.blueAccent),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -241,33 +243,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
+
   bool isValidEntries(BuildContext context) {
-    if (fullNameController.text.length == 0) {
+    if (oldPasswordController.text.length == 0) {
       new UtilityService().showMessage(
         context: context,
-        message: 'Please enter full name',
+        message: 'Please enter old password',
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
         ),
       );
       return false;
-    } else if (phoneController.text.length != 10) {
+    } else if (newPasswordController.text.length < 5) {
       new UtilityService().showMessage(
         context: context,
-        message: 'Please enter valid phone number',
+        message: 'Please enter new password',
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
         ),
       );
       return false;
-    } else if (emailController.text.length == 0 ||
-        !emailController.text.contains("@") ||
-        !emailController.text.contains(".")) {
+    } else if (repeatPasswordController.text.length < 5) {
       new UtilityService().showMessage(
         context: context,
-        message: 'Please enter valid email',
+        message: 'Please repeat password',
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
@@ -328,10 +329,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         } else {
           print('Body: ${response.body}');
           OTPModel otpModel = new OTPModel(
-            name: data['data']['name'],
-            email: data['data']['email'],
-            pin: data['data']['pin'],
-            phone: data['data']['phone'],
+            // name: data['data']['name'],
+            // email: data['data']['email'],
+            password: data['data']['password'],
+            // phone: data['data']['phone'],
             // password: passwordController.text,
           );
           print('otp: $otpModel');

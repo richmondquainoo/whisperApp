@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+// import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+// import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -10,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:whisper_badbadoo/Component/ProgressDialog.dart';
 import 'package:whisper_badbadoo/Component/TextButtonComponent.dart';
+// import 'package:whisper_badbadoo/Controller/profileController.dart';
 import 'package:whisper_badbadoo/Util/NetworkUtility.dart';
 import 'package:whisper_badbadoo/Util/Utility.dart';
 import 'package:whisper_badbadoo/Util/paths.dart';
@@ -26,6 +29,8 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
   File imageFile;
   // String imagePath = "";
   final picker = ImagePicker();
+  // final profileController = Get.put(ProfileController());
+  // final formKey = GlobalKey<FormState>();
 
   var profileNameController = TextEditingController();
   var setPinController = TextEditingController();
@@ -111,6 +116,94 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
                 ),
               ),
               SizedBox(height: 27,),
+              // Form(
+              //   key: profileController.formKey,
+              //   autovalidateMode: AutovalidateMode.disabled,
+              //   child: Column(
+              //     children: [
+              //       GetBuilder<ProfileController>(
+              //         builder: (_c) => Container(
+              //           decoration: BoxDecoration(
+              //             boxShadow: <BoxShadow>[
+              //               BoxShadow(
+              //                 color: Colors.grey.withOpacity(0.3),
+              //                 blurRadius: 40,
+              //               ),
+              //             ],
+              //           ),
+              //           child: SizedBox(
+              //             height: 115,
+              //             width: 115,
+              //             child: Stack(
+              //               clipBehavior: Clip.none, fit: StackFit.expand,
+              //               children: [
+              //                 CircleAvatar(
+              //                   backgroundImage: profileController.pickedFile!=null
+              //                       ? FileImage(
+              //                     File(profileController.pickedFile.path),
+              //                     // height: 300.0,
+              //                     // fit: BoxFit.scaleDown,
+              //                   )
+              //                       : AssetImage('assets/images/no_user.jpg') as ImageProvider,
+              //                 ),
+              //                 Positioned(
+              //                   right: -16,
+              //                   bottom: 0,
+              //                   child: SizedBox(
+              //                     height: 46,
+              //                     width: 46,
+              //                     child: FlatButton(
+              //                       shape: RoundedRectangleBorder(
+              //                         borderRadius: BorderRadius.circular(50),
+              //                         side: BorderSide(color: Colors.white),
+              //                       ),
+              //                       color: Colors.grey[200],
+              //                       onPressed: ()=>openBottomSheet(context),
+              //                       // onPressed: () {
+              //                       //   Get.bottomSheet(
+              //                       //     Container(
+              //                       //       decoration: BoxDecoration(
+              //                       //         color: Colors.white,
+              //                       //         borderRadius: const BorderRadius.only(
+              //                       //             topLeft: Radius.circular(16.0),
+              //                       //             topRight: Radius.circular(16.0)),
+              //                       //       ),
+              //                       //       // child: Wrap(
+              //                       //       //   alignment: WrapAlignment.end,
+              //                       //       //   crossAxisAlignment: WrapCrossAlignment.end,
+              //                       //       //   children: [
+              //                       //       //     ListTile(
+              //                       //       //       leading: Icon(Icons.camera),
+              //                       //       //       title: Text('Camera'),
+              //                       //       //       onTap: () {
+              //                       //       //         profileController.selectImage(ImageSource.camera);
+              //                       //       //       },
+              //                       //       //     ),
+              //                       //       //     ListTile(
+              //                       //       //       leading: Icon(Icons.image),
+              //                       //       //       title: Text('Gallery'),
+              //                       //       //       onTap: () {
+              //                       //       //         profileController.selectImage(ImageSource.gallery);
+              //                       //       //       },
+              //                       //       //     ),
+              //                       //       //   ],
+              //                       //       // ),
+              //                       //     ),
+              //                       //   );
+              //                       // },
+              //                       child: SvgPicture.asset("assets/images/Camera Icon.svg"),
+              //                     ),
+              //                   ),
+              //                 )
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       SizedBox(height: 7),
+              //     ],
+              //   ),
+              // ),
               Container(
                 alignment: Alignment.center,
                 child: Column(
@@ -392,6 +485,32 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
+  //
+  // openBottomSheet(BuildContext context) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: <Widget>[
+  //             ListTile(
+  //               leading: Icon(Icons.photo),
+  //               title: Text("Gallery"),
+  //               onTap: () {
+  //                 profileController.selectImage(ImageSource.gallery);
+  //               },
+  //             ),
+  //             ListTile(
+  //               leading: Icon(Icons.camera),
+  //               title: Text("Camera"),
+  //               onTap: () {
+  //                 profileController.selectImage(ImageSource.camera);
+  //               },
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
   _getFromGallery() async {
     PickedFile pickedFile = await ImagePicker().getImage(

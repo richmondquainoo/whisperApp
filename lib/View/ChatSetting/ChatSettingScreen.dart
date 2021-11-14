@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_badbadoo/Component/AccountInfoWidget.dart';
-
+import 'package:whisper_badbadoo/View/ChatSetting/ChatFontSizeScreen.dart';
+import 'package:whisper_badbadoo/View/ChatSetting/ChatFontStyleScreen.dart';
 
 class ChatSettingScreen extends StatefulWidget {
-
   @override
   _ChatSettingScreenState createState() => _ChatSettingScreenState();
 }
@@ -15,13 +14,14 @@ class _ChatSettingScreenState extends State<ChatSettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Chats",
           style: GoogleFonts.lato(
               fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
         ),
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
@@ -35,20 +35,43 @@ class _ChatSettingScreenState extends State<ChatSettingScreen> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            AccountInfoWidget(
-              selectIcon: Icons.font_download,
-              settingText: "Chat Fontstyle",
-              firstSubtext: "default (Arial rounded MT bold)",
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatFontStyleScreen()));
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: AccountInfoWidget(
+                  selectIcon: Icons.font_download,
+                  settingText: "Chat Fontstyle",
+                  firstSubtext: "default (Arial rounded MT bold)",
+                ),
+              ),
             ),
             Divider(
               color: Colors.black38,
               endIndent: 20,
               indent: 20,
             ),
-            AccountInfoWidget(
-              selectIcon: Icons.text_fields_outlined,
-              settingText: "Chat Fontsize",
-              firstSubtext: "default(20)",
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatFontSizeScreen(),
+                    ));
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: AccountInfoWidget(
+                  selectIcon: Icons.text_fields_outlined,
+                  settingText: "Chat Fontsize",
+                  firstSubtext: "default(20)",
+                ),
+              ),
             ),
             Divider(
               color: Colors.black38,
@@ -65,18 +88,24 @@ class _ChatSettingScreenState extends State<ChatSettingScreen> {
               endIndent: 20,
               indent: 20,
             ),
-            AccountInfoWidget(
-              selectIcon: Icons.invert_colors_sharp,
-              settingText: "Chat bubble text color",
-              firstSubtext: "(default(#3333)",
+            GestureDetector(
+              onTap: (){
+
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: AccountInfoWidget(
+                  selectIcon: Icons.invert_colors_sharp,
+                  settingText: "Chat bubble text color",
+                  firstSubtext: "(default(#3333)",
+                ),
+              ),
             ),
             Divider(
               color: Colors.black38,
               endIndent: 20,
               indent: 20,
             ),
-
-
           ],
         ),
       ),

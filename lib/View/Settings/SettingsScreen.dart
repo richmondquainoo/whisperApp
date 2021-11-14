@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_badbadoo/Component/AccountInfoWidget.dart';
@@ -6,18 +5,19 @@ import 'package:whisper_badbadoo/View/AccountSetting/AccountSettingScreen.dart';
 import 'package:whisper_badbadoo/View/ChatSetting/ChatSettingScreen.dart';
 import 'package:whisper_badbadoo/View/HelpCenter/HelpCenterScreen.dart';
 import 'package:whisper_badbadoo/View/Notification/NotificationScreen.dart';
+import 'package:whisper_badbadoo/View/OthersScreen/OthersScreen.dart';
+import 'package:whisper_badbadoo/View/PrivacySettingScreen/PrivacySettingScreen.dart';
 import 'package:whisper_badbadoo/View/Profile/ProfileScreen.dart';
-
+import 'package:whisper_badbadoo/View/ThemeSettings/ThemeScreen.dart';
 
 class SettingsScreen extends StatefulWidget {
-  // var togglecall;
-  // SettingsScreen({this.togglecall});
+  var togglecall;
+  SettingsScreen({this.togglecall});
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   // ThemeData _lightTheme = ThemeData(
   //   accentColor: Colors.pink,
   //   brightness: Brightness.light,
@@ -35,6 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -45,16 +46,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Colors.white,
           ),
         ),
-        // actions: [
-        //   Switch(
-        //     activeColor: Colors.white,
-        //       value: _light, onChanged: (state){
-        //     setState(() {
-        //       _light = state;
-        //     });
-        //
-        //   })
-        // ],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.wb_sunny_rounded),
+            onPressed: widget.togglecall,
+          ),
+        ],
         title: Text(
           "Settings",
           style: GoogleFonts.lato(
@@ -106,7 +103,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 builder: (context) => ProfileScreen(),
                               ));
                         },
-                        icon: Icon(Icons.edit, size: 22, color: Colors.black38),
+                        icon: Icon(
+                          Icons.edit, size: 22,
+                          // color: Colors.black38
+                        ),
                       ),
                     ),
                   ],
@@ -183,22 +183,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   endIndent: 20,
                   indent: 20,
                 ),
-                AccountInfoWidget(
-                  selectIcon: Icons.account_balance_wallet_rounded,
-                  settingText: "Payment",
-                  firstSubtext: "Transactions",
-                  secondSubText: "Voucher",
-                ),
-                Divider(
-                  color: Colors.black38,
-                  endIndent: 20,
-                  indent: 20,
-                ),
-                AccountInfoWidget(
-                  selectIcon: Icons.privacy_tip_rounded,
-                  settingText: "Privacy settings",
-                  firstSubtext: "Hide Chat",
-                  secondSubText: "Password",
+                // AccountInfoWidget(
+                //   selectIcon: Icons.account_balance_wallet_rounded,
+                //   settingText: "Payment",
+                //   firstSubtext: "Transactions",
+                //   secondSubText: "Voucher",
+                // ),
+                // Divider(
+                //   color: Colors.black38,
+                //   endIndent: 20,
+                //   indent: 20,
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => ThemeScreen()));
+                //   },
+                //   child: Container(
+                //     color: Colors.transparent,
+                //     child: AccountInfoWidget(
+                //       selectIcon: Icons.palette_rounded,
+                //       settingText: "Themes",
+                //       firstSubtext: "General",
+                //     ),
+                //   ),
+                // ),
+                // Divider(
+                //   color: Colors.black38,
+                //   endIndent: 20,
+                //   indent: 20,
+                // ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PrivacySettingScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: AccountInfoWidget(
+                      selectIcon: Icons.privacy_tip_rounded,
+                      settingText: "Privacy settings",
+                      firstSubtext: "Hide Chat",
+                      secondSubText: "Password",
+                    ),
+                  ),
                 ),
                 Divider(
                   color: Colors.black38,
@@ -227,11 +261,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   endIndent: 20,
                   indent: 20,
                 ),
-                AccountInfoWidget(
-                  selectIcon: Icons.more,
-                  settingText: "Others",
-                  firstSubtext: "Prank flags",
-                  secondSubText: "Storage",
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OthersScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: AccountInfoWidget(
+                      selectIcon: Icons.more,
+                      settingText: "Others",
+                      firstSubtext: "Prank flags",
+                      secondSubText: "Storage",
+                    ),
+                  ),
                 ),
                 Divider(
                   color: Colors.black38,

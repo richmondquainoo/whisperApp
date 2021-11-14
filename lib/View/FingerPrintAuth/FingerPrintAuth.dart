@@ -57,6 +57,7 @@ class _HomePageAuthCheckState extends State<HomePageAuthCheck> {
     if(!mounted) return;
     setState(() {
       _isAuthorized = isAutherized ? "AUTHORIZED" : "NOT AUTHORIZED";
+      print(_isAuthorized);
     });
   }
   @override
@@ -73,11 +74,11 @@ class _HomePageAuthCheckState extends State<HomePageAuthCheck> {
             RaisedButton(onPressed: (){
               _checkForBiometric();
             },color:Colors.blue,child: Text("Check",style: TextStyle(color: Colors.white),),),
-            Text(" List of Available Biomatric LIST : $_availableBiomatrics"),
+            Text(" List of Available Biometric LIST : $_availableBiomatrics"),
             RaisedButton(onPressed: (){
               _getListofBiometric();
             },color:Colors.blue,child: Text("Check List",style: TextStyle(color: Colors.white),),),
-            Text(" Is AUTHORIED ? : $_isAuthorized"),
+            Text(" Is AUTHORIZED ? : $_isAuthorized"),
             RaisedButton(onPressed: (){
               _getAuthentication();
             },color:Colors.blue,child: Text("AUTH",style: TextStyle(color: Colors.white),),),

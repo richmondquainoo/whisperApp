@@ -16,9 +16,10 @@ import 'package:whisper_badbadoo/model/OtpModel.dart';
 
 
 class OtpScreen extends StatefulWidget {
-  final OTPModel otpModel;
 
-  const OtpScreen({this.otpModel});
+  final OTPModel otpModel;
+  var togglecall;
+  OtpScreen({this.otpModel, this.togglecall});
 
   @override
   _OtpScreenState createState() => _OtpScreenState(otpModel: otpModel);

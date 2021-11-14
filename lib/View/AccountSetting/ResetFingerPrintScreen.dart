@@ -1,21 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:whisper_badbadoo/Component/TextButtonComponent.dart';
-import 'package:whisper_badbadoo/Util/Utility.dart';
-import 'package:whisper_badbadoo/View/Registration/RegistrationScreen.dart';
 
-class LoginScreen extends StatefulWidget {
-  var togglecall;
-  LoginScreen({this.togglecall});
+class ResetFingerPrintScreen extends StatefulWidget {
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _ResetFingerPrintScreenState createState() => _ResetFingerPrintScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-
+class _ResetFingerPrintScreenState extends State<ResetFingerPrintScreen> {
   //variable to check is biometric is there or not
   bool _hasBiometricSenson;
   // list of finger print added in local device settings
@@ -52,9 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   ////future function to check is the use is authorized or no
   Future<void> _getAuthentication() async{
-    bool isAuthorized = false;
+    bool isAutherized = false;
     try{
-      isAuthorized = await authentication.authenticateWithBiometrics(
+      isAutherized = await authentication.authenticateWithBiometrics(
           localizedReason: "SCAN YOUR FINGER PRINT TO GET AUTHORIZED",
           useErrorDialogs: true,
           stickyAuth: false
@@ -65,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     if(!mounted) return;
     setState(() {
-      _isAuthorized = isAuthorized ? "AUTHORIZED" : "NOT AUTHORIZED";
+      _isAuthorized = isAutherized ? "AUTHORIZED" : "NOT AUTHORIZED";
     });
   }
 
@@ -76,10 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _getListofBiometric();
     _getAuthentication();
   }
-
-  var pinController = TextEditingController();
-  String pin;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,29 +119,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 50,
                       ),
-                      Container(
-                        margin: EdgeInsets.all(5),
-                        padding: EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Colors.blueAccent, // set border color
-                              width: 1.6), // set border width
-                          borderRadius: BorderRadius.all(Radius.circular(
-                              10.0)), // set rounded corner radius
-                        ),
-                        child: TextField(
-                          style: TextStyle(color: Colors.black),
-                          // controller: fullNameController,
-                          // onChanged: (value) {
-                          //   fullName = value;
-                          // },
-                          decoration: InputDecoration(
-                            hintText: '**** Security Pin',
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.all(5),
+                      //   padding: EdgeInsets.only(left: 20),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.white,
+                      //     border: Border.all(
+                      //         color: Colors.blueAccent, // set border color
+                      //         width: 1.6), // set border width
+                      //     borderRadius: BorderRadius.all(Radius.circular(
+                      //         10.0)), // set rounded corner radius
+                      //   ),
+                      //   child: TextField(
+                      //     // controller: fullNameController,
+                      //     // onChanged: (value) {
+                      //     //   fullName = value;
+                      //     // },
+                      //     decoration: InputDecoration(
+                      //       hintText: '**** Security Pin',
+                      //       border: InputBorder.none,
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 30,
                       ),
@@ -158,35 +148,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Icon(
                           Icons.fingerprint_outlined,
                           color: Colors.blueAccent,
-                          size: 88,
+                          size: 78,
                         ),
                       ),
                       SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: (){
-                          _getAuthentication();
-                        },
-                        child: Container(
-                          child: Text(
-                            "Tap to use finger print",
-                            style: GoogleFonts.lato(
-                              fontSize: 16,
-                              // color: Colors.black,
-                              fontWeight: FontWeight.w300,
-                            ),
+                      Container(
+                        child: Text(
+                          "Finger print authentication",
+                          style: GoogleFonts.lato(
+                            fontSize: 16,
+                            // color: Colors.black,
+                            fontWeight: FontWeight.w300,
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 87,
+                        height: 100,
                       ),
                       TextButtonComponent(
-                        label: "Login",
+                        label: "Reset",
                         onTap: () {
-                          bool canProceed = isValidEntries(context);
-                          if(canProceed){
-                            _getAuthentication();
-                          }
+                          _getAuthentication();
                         },
                         labelColor: Colors.blueAccent,
                       ),
@@ -196,68 +178,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: Text(
-                        "Don't have an account?",
-                        style: GoogleFonts.lato(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 0.4,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 3,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => RegistrationScreen(),
-                        //   ),
-                        // );
-                      },
-                      child: Container(
-                        child: Text(
-                          "Register",
-                          style: GoogleFonts.lato(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.4,
-                            color: Colors.blueAccent,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  bool isValidEntries(BuildContext context) {
-    if (pinController.text.length != 4) {
-      new UtilityService().showMessage(
-        context: context,
-        message: 'Please enter pin',
-        icon: Icon(
-          Icons.error_outline,
-          color: Colors.red,
-        ),
-      );
-      return false;
-    } else {
-      return true;
-    }
-    return false;
   }
 }

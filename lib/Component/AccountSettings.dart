@@ -39,7 +39,7 @@ class AccountSettings extends StatelessWidget {
                         style: GoogleFonts.lato(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                       ),
                     ),
