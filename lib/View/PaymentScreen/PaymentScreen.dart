@@ -229,38 +229,40 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            height: 50,
-                            width: 260,
-                            margin: EdgeInsets.all(5),
-                            padding: EdgeInsets.only(left: 20),
-                            decoration: BoxDecoration(
-                              // color: Colors.black38,
-                              border: Border.all(
-                                  color: Colors.blueAccent, // set border color
-                                  width: 0.95), // set border width
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                  10.0)), // set rounded corner radius
-                            ),
-                            child: Center(
-                              child: TextField(
-                                // style: TextStyle(color: Colors.white),
-                                obscureText: true,
-                                controller: myNumberController,
-                                onChanged: (value) {
-                                  myNumber = value;
-                                },
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.add,
-                                    size: 22,
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              width: 260,
+                              margin: EdgeInsets.all(5),
+                              padding: EdgeInsets.only(left: 20),
+                              decoration: BoxDecoration(
+                                // color: Colors.black38,
+                                border: Border.all(
+                                    color: Colors.blueAccent, // set border color
+                                    width: 0.95), // set border width
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    10.0)), // set rounded corner radius
+                              ),
+                              child: Center(
+                                child: TextField(
+                                  // style: TextStyle(color: Colors.white),
+                                  obscureText: true,
+                                  controller: myNumberController,
+                                  onChanged: (value) {
+                                    myNumber = value;
+                                  },
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      Icons.add,
+                                      size: 22,
+                                    ),
+                                    // labelStyle: TextStyle(color: Colors.white),
+                                    // hintStyle: TextStyle(
+                                    //   color: Colors.white,
+                                    // ),
+                                    hintText: 'Enter Number',
+                                    border: InputBorder.none,
                                   ),
-                                  // labelStyle: TextStyle(color: Colors.white),
-                                  // hintStyle: TextStyle(
-                                  //   color: Colors.white,
-                                  // ),
-                                  hintText: 'Enter Number',
-                                  border: InputBorder.none,
                                 ),
                               ),
                             ),

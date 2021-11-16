@@ -4,48 +4,63 @@ import 'package:whisper_badbadoo/Component/MyActionButton.dart';
 import 'package:whisper_badbadoo/Component/SingleSelectionComponent.dart';
 
 class ChatFontStyleScreen extends StatefulWidget {
-
   @override
   _ChatFontStyleScreenState createState() => _ChatFontStyleScreenState();
 }
 
 class _ChatFontStyleScreenState extends State<ChatFontStyleScreen> {
-  List<String> sortFilter = [
-    'Abadi MT Condensed Light',
-    "Albertus Extra Bold",
-    "Albertus Medium",
-    "Antique Olive",
-    "Arial",
-    'Arial Black',
-    "Book Antiqua",
-    "Boulder",
-    "Calisto MT",
-    "Century Gothic",
-    "CG Omega",
-    "Chaucer",
-    "Coronet",
-    "Geneva",
-    "Letter Gothic",
-    "Lithograph",
-    "Long Island",
-    "Lucida Sans",
-    "Marigold",
-    "MS LineDraw",
-    "Old Century",
-    "Pegasus",
-    "Pythagoras",
-    "Sceptre",
-    "Tahoma",
-    "Teletype",
-    "Times New Roman",
-    "Trebuchet MS",
-    "Unicorn",
+  String myFont = 'Arvo';
+
+  // List<String> sortFilter = [
+  //   'Abadi MT Condensed Light',
+  //   "Albertus Extra Bold",
+  //   "Albertus Medium",
+  //   "Antique Olive",
+  //   "Arial",
+  //   'Arial Black',
+  //   "Book Antiqua",
+  //   "Boulder",
+  //   "Calisto MT",
+  //   "Century Gothic",
+  //   "CG Omega",
+  //   "Chaucer",
+  //   "Coronet",
+  //   "Geneva",
+  //   "Letter Gothic",
+  //   "Lithograph",
+  //   "Long Island",
+  //   "Lucida Sans",
+  //   "Marigold",
+  //   "MS LineDraw",
+  //   "Old Century",
+  //   "Pegasus",
+  //   "Pythagoras",
+  //   "Sceptre",
+  //   "Tahoma",
+  //   "Teletype",
+  //   "Times New Roman",
+  //   "Trebuchet MS",
+  //   "Unicorn",
+  // ];
+
+  List<String> fonts = [
+    'Arvo',
+    'Lora',
+    'Raleway',
+    'Teko',
+    'Lato',
+    'Laila',
+    'Lobster',
+    'Kranky',
+    'Source Code Pro',
+    'Kanit',
+    'Alice',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
+      appBar: AppBar(
         // shadowColor: Colors.white,
         // backgroundColor: Colors.white,
         leading: IconButton(
@@ -63,7 +78,7 @@ class _ChatFontStyleScreenState extends State<ChatFontStyleScreen> {
               onPressed: () {},
               child: Text(
                 "Done",
-                style: GoogleFonts.lato(
+                style: GoogleFonts.getFont(myFont,
                     fontSize: 19,
                     color: Colors.white,
                     fontWeight: FontWeight.w600),
@@ -71,21 +86,27 @@ class _ChatFontStyleScreenState extends State<ChatFontStyleScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        child:  Column(
+        child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10.0,right: 10,top: 7),
+              padding: const EdgeInsets.only(left: 10.0, right: 10, top: 7),
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   color: Colors.white10,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Column(
-                  children: [
-                    Expanded(child: SingleSelectionExample(sortFilter)),
-
-                  ],
+                child: ListView.separated(
+                  shrinkWrap:true,
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: fonts.length,
+                  itemBuilder: (context, index ){
+                    return FlatButton(onPressed:() {
+                      setState(() {
+                        myFont = fonts[index];
+                      });
+                    }, child: Text(fonts[index], style: GoogleFonts.getFont(myFont, fontSize: 19),));
+                  },
                 ),
               ),
             )

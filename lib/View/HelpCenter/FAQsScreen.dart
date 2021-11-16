@@ -136,12 +136,14 @@ class _FAQsScreenState extends State<FAQsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Text(
-                      "What are the advantages of using this app?",
-                      style: GoogleFonts.lato(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                  Expanded(
+                    child: Container(
+                      child: Text(
+                        "What are the advantages of using this app?",
+                        style: GoogleFonts.lato(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
@@ -167,12 +169,14 @@ class _FAQsScreenState extends State<FAQsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Text(
-                      "How can I  trigger an alert on the app?",
-                      style: GoogleFonts.lato(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                  Expanded(
+                    child: Container(
+                      child: Text(
+                        "How can I  trigger an alert on the app?",
+                        style: GoogleFonts.lato(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),

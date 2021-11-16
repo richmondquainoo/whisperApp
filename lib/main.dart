@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:whisper_badbadoo/View/ChatSetting/ChatFontStyleScreen.dart';
 import 'package:whisper_badbadoo/View/Otp/OtpScreen.dart';
 import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
 import 'package:whisper_badbadoo/test.dart';
@@ -97,11 +99,10 @@ class _ChatAppState extends State<ChatApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:RegistrationScreen(
-        togglecall: toggletheme,
+      home:SettingsScreen(
+        // togglecall: toggletheme,
       ),
       theme: ThemeData(
-
         primaryColor: Colors.blueAccent,
         cardColor: Colors.lightBlueAccent,
         inputDecorationTheme: InputDecorationTheme(
