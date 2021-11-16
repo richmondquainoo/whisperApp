@@ -11,12 +11,11 @@ import 'package:whisper_badbadoo/Util/NetworkUtility.dart';
 import 'package:whisper_badbadoo/Util/Utility.dart';
 import 'package:whisper_badbadoo/Util/paths.dart';
 import 'package:whisper_badbadoo/View/Login/LoginScreen.dart';
+import 'package:whisper_badbadoo/View/Login/SetPin.dart';
 import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
 import 'package:whisper_badbadoo/model/OtpModel.dart';
 
-
 class OtpScreen extends StatefulWidget {
-
   final OTPModel otpModel;
   var togglecall;
   OtpScreen({this.otpModel, this.togglecall});
@@ -26,6 +25,8 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final OTPModel otpModel;
 
   String globalPin;
@@ -35,6 +36,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // key: _scaffoldKey,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -42,7 +44,11 @@ class _OtpScreenState extends State<OtpScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: TopBarComponent(
-                    icon: Icon(Icons.arrow_back_ios_outlined,size: 25,color:Colors.blueAccent,),
+                    icon: Icon(
+                      Icons.arrow_back_ios_outlined,
+                      size: 25,
+                      color: Colors.blueAccent,
+                    ),
                     iconFunction: () {
                       Navigator.pop(context);
                     }),
@@ -80,10 +86,11 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: Text(
                     'Enter the verification code we just sent to your email address.',
                     style: GoogleFonts.lato(
-                        fontSize: 16.5,
-                        wordSpacing: 1.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.blueGrey),
+                      fontSize: 16.5,
+                      wordSpacing: 1.0,
+                      fontWeight: FontWeight.w500,
+                      // color: Colors.blueGrey
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -98,7 +105,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     length: 4,
                     width: MediaQuery.of(context).size.width,
                     fieldWidth: 50,
-                    style: TextStyle(color: Colors.black, fontSize: 40),
+                    style: TextStyle(color: Colors.white, fontSize: 40),
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     fieldStyle: FieldStyle.underline,
                     onCompleted: (pin) {
@@ -127,9 +134,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     child: Text(
                       "Didn't receive a code?",
                       style: GoogleFonts.lato(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 14.5,
-                          color: Colors.black),
+                        fontWeight: FontWeight.w300,
+                        fontSize: 14.5,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -164,6 +171,8 @@ class _OtpScreenState extends State<OtpScreen> {
                         //  Validate input fields
                         //  Compare the input text to the one provided by the user
                         registration(context);
+
+
                       },
                       child: Container(
                         height: 45,
@@ -206,7 +215,7 @@ class _OtpScreenState extends State<OtpScreen> {
     bool canProceed = isValidInput(context);
     if (canProceed) {
       registerUser(otpModel: otpModel, context: context);
-      new UtilityService().showMessage();
+      // new UtilityService().showMessage();
     }
   }
 
@@ -265,31 +274,33 @@ class _OtpScreenState extends State<OtpScreen> {
         context: context,
       );
     } else if (status == -333) {
-      new UtilityService().showMessage(
-        message: 'An account with this email address already exist.',
-        icon: Icon(
-          Icons.error_outline,
-          color: Colors.red,
-        ),
-        context: context,
-      );
+      // new UtilityService().showMessage(
+      //   message: 'An account with this email address already exist.',
+      //   icon: Icon(
+      //     Icons.error_outline,
+      //     color: Colors.red,
+      //   ),
+      //   context: context,
+      // );
       Navigator.of(context, rootNavigator: true).pop();
       new UtilityService().notificationMessageWithButton(
           title: "Retry",
-          message: "Account already exist with this email. Please login to proceed.",
+          message:
+              "Account already exist with this email. Please login to proceed.",
           context: context,
           backgroundColor: Colors.white,
           color: Colors.blue,
           buttonText: "Login",
           textColor: Colors.red,
           proceed: () {
+            Navigator.of(context,rootNavigator: true).pop();
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => LoginScreen()));
-          }
-          );
-
-    }else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+            // Navigator.of(context,rootNavigator: true).pop();
+          });
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SetPinScreen()));
     }
   }
 

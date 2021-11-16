@@ -1,32 +1,22 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
-import 'package:whisper_badbadoo/Component/ProgressDialog.dart';
 import 'package:whisper_badbadoo/Component/TextButtonComponent.dart';
-import 'package:whisper_badbadoo/Util/NetworkUtility.dart';
 import 'package:whisper_badbadoo/Util/Utility.dart';
-import 'package:whisper_badbadoo/Util/paths.dart';
-import 'package:whisper_badbadoo/View/Otp/OtpScreen.dart';
-import 'package:whisper_badbadoo/model/OtpModel.dart';
+import 'package:whisper_badbadoo/View/Login/FingerprintScreen.dart';
+import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
 
-class ChangePassword extends StatefulWidget {
-
+class SetPinScreen extends StatefulWidget {
   @override
-  _ChangePasswordState createState() => _ChangePasswordState();
+  _SetPinScreenState createState() => _SetPinScreenState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
-  var oldPasswordController = TextEditingController();
-  var newPasswordController = TextEditingController();
-  var repeatPasswordController = TextEditingController();
+class _SetPinScreenState extends State<SetPinScreen> {
+  var firstPinController = TextEditingController();
+  var secondPinController = TextEditingController();
 
-
-  String oldPassword;
-  String newPassword;
-  String repeatPassword;
+  String firstPin;
+  String secondPin;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +32,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pop(context);
                       },
                       child: Container(
@@ -76,19 +66,31 @@ class _ChangePasswordState extends State<ChangePassword> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        alignment: Alignment.center,
-                        height: 50,
-                        child: Icon(
-                          Icons.lock,
-                          color: Colors.blueAccent,
-                          size: 63,
+                          alignment: Alignment.center,
+                          height: 85,
+                          child: Image(
+                            color: Colors.blueAccent,
+                            image: AssetImage(
+                              "assets/images/password.png",
+                            ),
+                          )),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        child: Text(
+                          "Enter 4 digit pin",
+                          style: GoogleFonts.lato(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 20,
                       ),
                       Container(
-                        height:45,
+                        height: 45,
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
@@ -102,16 +104,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                         child: TextField(
                           // style: TextStyle(color: Colors.white),
                           obscureText: true,
-                          controller: oldPasswordController,
+                          controller: firstPinController,
                           onChanged: (value) {
-                            oldPassword = value;
+                            firstPin = value;
                           },
                           decoration: InputDecoration(
                             // labelStyle: TextStyle(color: Colors.white),
-                            hintText: 'Old Pin',
+                            hintText: 'Set pin',
                             hintStyle: TextStyle(
-                              // color: Colors.white,
-                            ),
+                                // color: Colors.white,
+                                ),
                             border: InputBorder.none,
                           ),
                         ),
@@ -120,7 +122,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         height: 10,
                       ),
                       Container(
-                        height:45,
+                        height: 45,
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
@@ -134,9 +136,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                         child: TextField(
                           // style: TextStyle(color: Colors.white),
                           obscureText: true,
-                          controller: newPasswordController,
+                          controller: secondPinController,
                           onChanged: (value) {
-                            newPassword = value;
+                            secondPin = value;
                           },
                           decoration: InputDecoration(
                             // labelStyle: TextStyle(color: Colors.white),
@@ -145,7 +147,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             // ),
                             // fillColor: Colors.grey,
                             // filled: true,
-                            hintText: 'New Pin',
+                            hintText: 'Confirm Pin',
                             border: InputBorder.none,
                           ),
                         ),
@@ -153,63 +155,59 @@ class _ChangePasswordState extends State<ChangePassword> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        height:45,
-                        margin: EdgeInsets.all(5),
-                        padding: EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          // color: Colors.black38,
-                          border: Border.all(
-                              color: Colors.blueAccent, // set border color
-                              width: 0.95), // set border width
-                          borderRadius: BorderRadius.all(Radius.circular(
-                              10.0)), // set rounded corner radius
-                        ),
-                        child: TextField(
-                          // style: TextStyle(color: Colors.white),
-                          obscureText: true,
-                          controller: repeatPasswordController,
-                          onChanged: (value) {
-                            repeatPassword = value;
-                          },
-                          decoration: InputDecoration(
-                            // labelStyle: TextStyle(color: Colors.white),
-                            // hintStyle: TextStyle(
-                            //   color: Colors.white,
-                            // ),
-                            hintText: 'Repeat Pin',
-                            border: InputBorder.none,
+                      SizedBox(
+                        height: 50,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FingerprintScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          child: Text(
+                            "Use fingerprint instead",
+                            style: GoogleFonts.lato(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                wordSpacing: 1.5,
+                                decoration: TextDecoration.underline),
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 26,
                       ),
                       TextButtonComponent(
                         label: "Done",
                         onTap: () {
                           bool canProceed = isValidEntries(context);
                           if (canProceed) {
-                            OTPModel model = OTPModel(
-                              // name: fullName,
-                              // email: email,
-                              // pin: pin,
-                            );
+                            // OTPModel model = OTPModel(
+                            //   // name: fullName,
+                            //   // email: email,
+                            //   // pin: pin,
+                            // );
                             new UtilityService().confirmationBox(
                                 title: 'Confirmation',
-                                message: 'Are you sure you want to proceed with the registration?',
+                                message:
+                                    'Are you sure you want to always login with this pin?',
                                 context: context,
                                 color: Colors.blueAccent,
-                                onYes: (){
+                                onYes: () {
                                   Navigator.pop(context);
-                                  createOTP(
-                                      context: context, dataModel: model);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SettingsScreen()));
                                 },
-                                onNo: (){
+                                onNo: () {
                                   Navigator.pop(context);
-                                }
-                            );
-
+                                });
                           }
                         },
                         labelColor: Colors.blueAccent,
@@ -255,32 +253,35 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-
   bool isValidEntries(BuildContext context) {
-    if (oldPasswordController.text.length == 0) {
+    if (firstPinController.text.length == 0 ||
+        firstPinController.text.length < 4 ||
+        firstPinController.text.length > 5) {
       new UtilityService().showMessage(
         context: context,
-        message: 'Please enter old password',
+        message: 'Please enter pin',
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
         ),
       );
       return false;
-    } else if (newPasswordController.text.length < 5) {
+    } else if (secondPinController.text.length == 0 ||
+        secondPinController.text.length >= 5 ||
+        secondPinController.text.length < 4) {
       new UtilityService().showMessage(
         context: context,
-        message: 'Please enter new password',
+        message: 'Please enter a 4 digit pin',
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
         ),
       );
       return false;
-    } else if (repeatPasswordController.text.length < 5) {
+    } else if (firstPinController.text != secondPinController.text) {
       new UtilityService().showMessage(
         context: context,
-        message: 'Please repeat password',
+        message: 'Pin does not match',
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
@@ -291,78 +292,5 @@ class _ChangePasswordState extends State<ChangePassword> {
       return true;
     }
     return false;
-  }
-
-  void createOTP({OTPModel dataModel, BuildContext context}) async {
-    try {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return ProgressDialog(displayMessage: 'Please wait...');
-        },
-      );
-      var jsonBody = jsonEncode(dataModel);
-      NetworkUtility networkUtility = NetworkUtility();
-      Response response = await networkUtility.postDataWithAuth(
-          url: OTP_URL, body: jsonBody, auth: 'Bearer $ACCESS_TOKEN');
-
-      print('Response: ${response.body}');
-
-
-      Navigator.of(context, rootNavigator: true).pop();
-
-      if(response == null){
-        //error handling
-        new UtilityService().showMessage(
-          context: context,
-          message: 'An error has occurred. Please try again',
-          icon: Icon(
-            Icons.error_outline,
-            color: Colors.red,
-          ),
-        );
-      }else{
-        // //when there is a response to handle
-        // int status = response.statusCode;
-        var data = jsonDecode(response.body);
-
-        int status = data['status'];
-        print('Status: $status');
-        // Handle network error
-        if (status == 500 || status == 404 || status == 403) {
-          new UtilityService().showMessage(
-            message: 'An error has occurred. Please try again',
-            icon: Icon(
-              Icons.error_outline,
-              color:Colors.red,
-            ),
-            context: context,
-          );
-        } else {
-          print('Body: ${response.body}');
-          OTPModel otpModel = new OTPModel(
-            // name: data['data']['name'],
-            // email: data['data']['email'],
-            password: data['data']['password'],
-            // phone: data['data']['phone'],
-            // password: passwordController.text,
-          );
-          print('otp: $otpModel');
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpScreen(otpModel: otpModel,),),);
-        }
-      }
-
-    } catch (e) {
-      print('postUserData error: $e');
-      new UtilityService().showMessage(
-        context: context,
-        message: 'An error has occurred. Please try again',
-        icon: Icon(
-          Icons.error_outline,
-          color: Colors.red,
-        ),
-      );
-      Navigator.of(context, rootNavigator: true).pop();
-    }
   }
 }

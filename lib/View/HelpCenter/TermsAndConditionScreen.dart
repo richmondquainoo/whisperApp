@@ -39,15 +39,15 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                 height: 380,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.6,
-                      spreadRadius: 1.5,
-                      color: Colors.black12,
-                      offset: Offset(0.2, 1),
-                    ),
-                  ],
-                  color: kPrimaryColor5,
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     blurRadius: 0.6,
+                  //     spreadRadius: 1.5,
+                  //     color: Colors.black12,
+                  //     offset: Offset(0.2, 1),
+                  //   ),
+                  // ],
+                  color:Colors.black12,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -66,14 +66,14 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                     " which come under two categories: condition precedent and "
                     "condition subsequent Conditions precedent are conditions "
                     "that have to be. Conditions precedent are conditions "
-                    "that Conditions precedent are conditions thatperformance of"
+                    "that Conditions precedent are conditions that performance of"
                     "a contract is required by both parties With conditions "
                     "subsequent, parties do not need to perform.",
                     style: GoogleFonts.lato(
                         fontSize: 15,
                         fontWeight: FontWeight.w300,
                         wordSpacing: 0.3,
-                        color: Colors.black),
+                        color: Colors.white),
                     textAlign: TextAlign.justify,
                   ),
                 ),

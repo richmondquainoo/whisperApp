@@ -57,7 +57,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
           Container(
             height: 35,
             width: MediaQuery.of(context).size.width,
-            color: Colors.grey[300],
+            color: Colors.black38,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -65,7 +65,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
                 style: GoogleFonts.lato(
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
-                    color: Colors.blueAccent),
+                    color: Colors.white),
               ),
             ),
           ),
@@ -188,7 +188,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
           Container(
             height: 44,
             width: MediaQuery.of(context).size.width,
-            color: Colors.grey[300],
+            color: Colors.black38,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -200,7 +200,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
-                          color: Colors.blueAccent),
+                          color: Colors.white),
                     ),
                   ),
                 ),
@@ -216,7 +216,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
                     child: IconButton(
                       icon: Icon(
                         Icons.arrow_forward_ios,
-                        color: Colors.blueAccent,
+                        color: Colors.white,
                         size: 21,
                       ),
                     ),
@@ -275,7 +275,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
           Container(
             height: 44,
             width: MediaQuery.of(context).size.width,
-            color: Colors.grey[300],
+            color: Colors.black38,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -287,7 +287,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
-                          color: Colors.blueAccent),
+                          color: Colors.white),
                     ),
                   ),
                 ),
@@ -303,7 +303,7 @@ class _PrivacySettingScreenState extends State<PrivacySettingScreen> {
                     child: IconButton(
                       icon: Icon(
                         Icons.arrow_forward_ios,
-                        color: Colors.blueAccent,
+                        color: Colors.white,
                         size: 21,
                       ),
                     ),

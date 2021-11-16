@@ -15,7 +15,7 @@ class UtilityService {
             position: FlashPosition.bottom,
             child: FlashBar(
               icon: icon,
-              message: Text(message),
+              message: Text(message, style: TextStyle(color: Colors.black),),
             ),
           );
         });
@@ -604,15 +604,15 @@ class UtilityService {
                   height: 200,
                   width: 400,
                   decoration: BoxDecoration(
-                    color: kPrimaryColor6,
+                    color:Colors.grey.shade700,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0.5, 0.5),
-                        spreadRadius: 0.2,
-                        blurRadius: 0.2,
-                      ),
-                    ],
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     offset: Offset(0.5, 0.5),
+                    //     spreadRadius: 0.2,
+                    //     blurRadius: 0.2,
+                    //   ),
+                    // ],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -625,10 +625,10 @@ class UtilityService {
                             child: Text(
                               message,
                               style: GoogleFonts.lato(
-                                fontSize: 15,
-                                wordSpacing: 1,
+                                fontSize: 16,
+                                wordSpacing: 1.4,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.black,
+                                color:Colors.white,
                                 decoration: TextDecoration.none,
                               ),
                               textAlign:TextAlign.justify,

@@ -97,10 +97,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          // color: Colors.white,
                           border: Border.all(
                               color: Colors.blueAccent, // set border color
-                              width: 1.6), // set border width
+                              width: 0.95), // set border width
                           borderRadius: BorderRadius.all(Radius.circular(
                               10.0)), // set rounded corner radius
                         ),
@@ -123,10 +123,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          // color: Colors.white,
                           border: Border.all(
                               color: Colors.blueAccent, // set border color
-                              width: 1.6), // set border width
+                              width: 0.95), // set border width
                           borderRadius: BorderRadius.all(Radius.circular(
                               10.0)), // set rounded corner radius
                         ),
@@ -149,10 +149,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          // color: Colors.white,
                           border: Border.all(
                               color: Colors.blueAccent, // set border color
-                              width: 1.6), // set border width
+                              width: 0.95), // set border width
                           borderRadius: BorderRadius.all(Radius.circular(
                               10.0)), // set rounded corner radius
                         ),

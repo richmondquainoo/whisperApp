@@ -90,15 +90,15 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                 height: 100,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.6,
-                      spreadRadius: 1.5,
-                      color: Colors.black12,
-                      offset: Offset(0.2, 1),
-                    ),
-                  ],
-                  color: kPrimaryColor5,
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     blurRadius: 0.6,
+                  //     spreadRadius: 1.5,
+                  //     color: Colors.black12,
+                  //     offset: Offset(0.2, 1),
+                  //   ),
+                  // ],
+                  color: Colors.black38,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -127,7 +127,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                                       style: GoogleFonts.lato(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -137,7 +137,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                                       style: GoogleFonts.lato(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -167,7 +167,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                             ),
                           ),
                           Container(
-                            child: Text("1/5", style: TextStyle(color: Colors.black54,fontSize: 12),),
+                            child: Text("1/5", style: TextStyle(color: Colors.white,fontSize: 12),),
                           ),
                         ],
                       ),
@@ -181,15 +181,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                 height: 100,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.6,
-                      spreadRadius: 1.5,
-                      color: Colors.black12,
-                      offset: Offset(0.2, 1),
-                    ),
-                  ],
-                  color: kPrimaryColor5,
+                  color: Colors.black38,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -218,7 +210,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                                       style: GoogleFonts.lato(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -228,7 +220,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                                       style: GoogleFonts.lato(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -258,7 +250,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                             ),
                           ),
                           Container(
-                            child: Text("3/5", style: TextStyle(color: Colors.black54,fontSize: 12),),
+                            child: Text("3/5", style: TextStyle(color: Colors.white,fontSize: 12),),
                           ),
                         ],
                       ),
@@ -272,15 +264,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                 height: 100,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.6,
-                      spreadRadius: 1.5,
-                      color: Colors.black12,
-                      offset: Offset(0.2, 1),
-                    ),
-                  ],
-                  color: kPrimaryColor5,
+                  color: Colors.black38,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -309,7 +293,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                                       style: GoogleFonts.lato(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -319,7 +303,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                                       style: GoogleFonts.lato(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -349,7 +333,7 @@ class _FlaggedPrankScreenState extends State<FlaggedPrankScreen> {
                             ),
                           ),
                           Container(
-                            child: Text("5/5", style: TextStyle(color: Colors.black54,fontSize: 12),),
+                            child: Text("5/5", style: TextStyle(color: Colors.white,fontSize: 12),),
                           ),
                         ],
                       ),

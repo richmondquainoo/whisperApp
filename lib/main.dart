@@ -8,6 +8,7 @@ import 'package:whisper_badbadoo/test.dart';
 
 
 import 'View/Login/LoginScreen.dart';
+import 'View/Login/SetPin.dart';
 import 'View/Profile/ProfileScreen.dart';
 import 'View/Registration/RegistrationScreen.dart';
 import 'View/UserProfileDetails/UserProfileDetailsScreen.dart';
@@ -96,20 +97,35 @@ class _ChatAppState extends State<ChatApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:SettingsScreen(
+      home:RegistrationScreen(
         togglecall: toggletheme,
       ),
       theme: ThemeData(
+
         primaryColor: Colors.blueAccent,
-        cardColor: Colors.lightBlueAccent
+        cardColor: Colors.lightBlueAccent,
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: Colors.white,
+          labelStyle: TextStyle(
+            color: Colors.black,
+          )
+        )
+        // inputDecorationTheme: InputDecorationTheme(
+        //   labelStyle: TextStyle(
+        //     color: Colors.black
+        //   ),
+        // ),
+
           ),
     darkTheme: ThemeData.dark().copyWith(
+      dialogTheme: DialogTheme(backgroundColor: Colors.white,),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle:TextStyle(
         color: Colors.white,
           ),
+        // hintStyle: TextStyle(color: Colors.white)
       ),
-         hintColor: Colors.black,
+         // hintColor: Colors.black,
         brightness: Brightness.dark,
         primaryIconTheme: IconThemeData(
           color: Colors.white,
@@ -127,6 +143,8 @@ class _ChatAppState extends State<ChatApp> {
         title: TextStyle(color: Colors.white),
       ),
           ),
+
+
     themeMode: thememode==1? ThemeMode.dark:ThemeMode.light,
     );
   }

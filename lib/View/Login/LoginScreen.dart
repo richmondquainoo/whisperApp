@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,55 +14,52 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   //variable to check is biometric is there or not
-  bool _hasBiometricSenson;
+  bool _hasBiometricSensor;
   // list of finger print added in local device settings
   List<BiometricType> _availableBiomatrics;
-  String  _isAuthorized = "NOT AUTHORIZED";
+  String _isAuthorized = "NOT AUTHORIZED";
   LocalAuthentication authentication = LocalAuthentication();
   //future function to check if biometric senson is available on device
-  Future<void> _checkForBiometric() async{
+  Future<void> _checkForBiometric() async {
     bool hasBiometric;
-    try{
+    try {
       hasBiometric = await authentication.canCheckBiometrics;
-    } on PlatformException catch(e)
-    {
+    } on PlatformException catch (e) {
       print(e);
     }
-    if(!mounted) return;
+    if (!mounted) return;
     setState(() {
-      _hasBiometricSenson = hasBiometric;
+      _hasBiometricSensor = hasBiometric;
     });
   }
+
 //future function to get the list of Biometric or faceID added into device
-  Future<void> _getListofBiometric() async{
+  Future<void> _getListofBiometric() async {
     List<BiometricType> ListofBiometric;
-    try{
+    try {
       ListofBiometric = await authentication.getAvailableBiometrics();
-    } on PlatformException catch(e)
-    {
+    } on PlatformException catch (e) {
       print(e);
     }
-    if(!mounted) return;
+    if (!mounted) return;
     setState(() {
-      _availableBiomatrics  = ListofBiometric;
+      _availableBiomatrics = ListofBiometric;
     });
   }
+
   ////future function to check is the use is authorized or no
-  Future<void> _getAuthentication() async{
+  Future<void> _getAuthentication() async {
     bool isAuthorized = false;
-    try{
+    try {
       isAuthorized = await authentication.authenticateWithBiometrics(
           localizedReason: "SCAN YOUR FINGER PRINT TO GET AUTHORIZED",
           useErrorDialogs: true,
-          stickyAuth: false
-      );
-    } on PlatformException catch(e)
-    {
+          stickyAuth: false);
+    } on PlatformException catch (e) {
       print(e);
     }
-    if(!mounted) return;
+    if (!mounted) return;
     setState(() {
       _isAuthorized = isAuthorized ? "AUTHORIZED" : "NOT AUTHORIZED";
     });
@@ -129,18 +125,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 50,
                       ),
                       Container(
+                        child: Text(
+                          "Set your login pin and fingerprint",
+                          style: GoogleFonts.lato(
+                              fontSize: 15, fontWeight: FontWeight.w300),
+                        ),
+                      ),
+                      SizedBox(height: 15,),
+                      Container(
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          // color: Colors.white,
                           border: Border.all(
                               color: Colors.blueAccent, // set border color
-                              width: 1.6), // set border width
+                              width: 0.95), // set border width
                           borderRadius: BorderRadius.all(Radius.circular(
                               10.0)), // set rounded corner radius
                         ),
                         child: TextField(
-                          style: TextStyle(color: Colors.black),
+                          obscureText: true,
+                          // style: TextStyle(color: Colors.black),
                           // controller: fullNameController,
                           // onChanged: (value) {
                           //   fullName = value;
@@ -163,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: 10),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           _getAuthentication();
                         },
                         child: Container(
@@ -184,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: "Login",
                         onTap: () {
                           bool canProceed = isValidEntries(context);
-                          if(canProceed){
+                          if (canProceed) {
                             _getAuthentication();
                           }
                         },

@@ -6,6 +6,7 @@ import 'package:whisper_badbadoo/View/ChatSetting/ChatSettingScreen.dart';
 import 'package:whisper_badbadoo/View/HelpCenter/HelpCenterScreen.dart';
 import 'package:whisper_badbadoo/View/Notification/NotificationScreen.dart';
 import 'package:whisper_badbadoo/View/OthersScreen/OthersScreen.dart';
+import 'package:whisper_badbadoo/View/PaymentScreen/PaymentScreen.dart';
 import 'package:whisper_badbadoo/View/PrivacySettingScreen/PrivacySettingScreen.dart';
 import 'package:whisper_badbadoo/View/Profile/ProfileScreen.dart';
 import 'package:whisper_badbadoo/View/ThemeSettings/ThemeScreen.dart';
@@ -183,38 +184,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   endIndent: 20,
                   indent: 20,
                 ),
-                // AccountInfoWidget(
-                //   selectIcon: Icons.account_balance_wallet_rounded,
-                //   settingText: "Payment",
-                //   firstSubtext: "Transactions",
-                //   secondSubText: "Voucher",
-                // ),
-                // Divider(
-                //   color: Colors.black38,
-                //   endIndent: 20,
-                //   indent: 20,
-                // ),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => ThemeScreen()));
-                //   },
-                //   child: Container(
-                //     color: Colors.transparent,
-                //     child: AccountInfoWidget(
-                //       selectIcon: Icons.palette_rounded,
-                //       settingText: "Themes",
-                //       firstSubtext: "General",
-                //     ),
-                //   ),
-                // ),
-                // Divider(
-                //   color: Colors.black38,
-                //   endIndent: 20,
-                //   indent: 20,
-                // ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PaymentScreen(),
+                        ));
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: AccountInfoWidget(
+                      selectIcon: Icons.account_balance_wallet_rounded,
+                      settingText: "Payment",
+                      firstSubtext: "Transactions",
+                      secondSubText: "Voucher",
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Colors.black38,
+                  endIndent: 20,
+                  indent: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ThemeScreen()));
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: AccountInfoWidget(
+                      selectIcon: Icons.palette_rounded,
+                      settingText: "Themes",
+                      firstSubtext: "General",
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Colors.black38,
+                  endIndent: 20,
+                  indent: 20,
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_badbadoo/Component/AccountInfoWidget.dart';
 import 'package:whisper_badbadoo/View/HelpCenter/FAQsScreen.dart';
+import 'package:whisper_badbadoo/View/HelpCenter/ReportBugScreen.dart';
 import 'package:whisper_badbadoo/View/HelpCenter/TermsAndConditionScreen.dart';
 
 class HelpCenterScreen extends StatefulWidget {
@@ -75,10 +76,18 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               endIndent: 20,
               indent: 20,
             ),
-            AccountInfoWidget(
-              selectIcon: Icons.report_problem_rounded,
-              settingText: "Report a bug",
-              firstSubtext: "Report Mail",
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportBugScreen()));
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: AccountInfoWidget(
+                  selectIcon: Icons.report_problem_rounded,
+                  settingText: "Report a bug",
+                  firstSubtext: "Report Mail",
+                ),
+              ),
             ),
             Divider(
               color: Colors.black38,

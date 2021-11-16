@@ -1,4 +1,4 @@
-const String BASE_URL = 'https://5b36-197-251-220-146.ngrok.io';
+const String BASE_URL = 'http://132.226.211.137:8585';
 const String OTP_URL = '$BASE_URL/api/OTP/createOTP';
 const String CREATE_USER_URL = '$BASE_URL/api/User/createAccount';
 
