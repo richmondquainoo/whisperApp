@@ -19,6 +19,7 @@ class UserDBImplementation {
   Future<bool> saveUser(UserProfileModel model) async {
     try {
       await initializeDB();
+      await userDB.deleteAll();
       return userDB.insertObject(model);
     } catch (e) {
       print('saveUser error: $e');
@@ -31,8 +32,32 @@ class UserDBImplementation {
       await initializeDB();
       return userDB.getUserByProfile(profileName);
     } catch (e) {
-      print('saveUser error: $e');
+      print('getByProfileName error: $e');
       return null;
     }
+  }
+
+  Future<UserProfileModel> getByLoginPin(String loginPin) async {
+    try {
+      await initializeDB();
+      return userDB.getUserByLoginPin(loginPin);
+    } catch (e) {
+      print('getByLoginPin error: $e');
+      return null;
+    }
+  }
+
+  Future<UserProfileModel> getUser() async {
+    try {
+      await initializeDB();
+      List<UserProfileModel> users = await userDB.getAllUsers();
+      if(users.isNotEmpty) {
+        return users.first;
+      }
+    } catch (e) {
+      print('getUser error: $e');
+      return null;
+    }
+    return null;
   }
 }

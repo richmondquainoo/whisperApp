@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:whisper_badbadoo/View/LandingScreen/LandingScreen.dart';
+import 'package:whisper_badbadoo/View/Login/LoginScreen.dart';
 
 import 'View/Registration/RegistrationScreen.dart';
 
@@ -84,7 +86,7 @@ class _ChatAppState extends State<ChatApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RegistrationScreen(),
+      home: LandingScreen(),
       theme: ThemeData(
           primaryColor: Colors.blueAccent,
           cardColor: Colors.lightBlueAccent,

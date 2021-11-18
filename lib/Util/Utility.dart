@@ -8,7 +8,7 @@ class UtilityService {
   void showMessage({String message, Icon icon, BuildContext context}) {
     showFlash(
         context: context,
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 4),
         builder: (_, controller) {
           return Flash(
             controller: controller,

@@ -54,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void getUserInfo() async {
-    UserProfileModel u = await dbImplementation.getByProfileName('admin');
+    UserProfileModel u = await dbImplementation.getUser();
     setState(() {
       user = u;
     });
@@ -116,8 +116,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         // ),
                         Container(
                           child: Text(
-                              (user != null && user.name != null)
-                                  ? user.name
+                              (user != null && user.profileName != null)
+                                  ? user.profileName
                                   : "",
                               style: GoogleFonts.lato(
                                 fontSize: 17,

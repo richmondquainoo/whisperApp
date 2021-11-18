@@ -16,18 +16,32 @@ import 'package:whisper_badbadoo/model/OtpModel.dart';
 
 class OtpScreen extends StatefulWidget {
   final OTPModel otpModel;
+  final String track;
 
-  OtpScreen({this.otpModel});
+  OtpScreen({this.otpModel,this.track});
 
   @override
-  _OtpScreenState createState() => _OtpScreenState(otpModel: otpModel);
+  _OtpScreenState createState() => _OtpScreenState(otpModel: otpModel, track: track);
 }
 
 class _OtpScreenState extends State<OtpScreen> {
   final OTPModel otpModel;
+  final String track;
   String globalPin;
+  String caption = 'Enter the verification code we just sent to your email address.';
 
-  _OtpScreenState({this.otpModel});
+
+  @override
+  void initState() {
+    super.initState();
+    if(otpModel != null && otpModel.email != null){
+      caption = 'Enter the verification code we just sent to your email address '
+          '${otpModel.email.substring(0,1)}'
+          '***${otpModel.email.substring(otpModel.email.length-3)}';
+    }
+  }
+
+  _OtpScreenState({this.otpModel, this.track});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +94,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    'Enter the verification code we just sent to your email address.',
+                    caption,
                     style: GoogleFonts.lato(
                       fontSize: 16.5,
                       wordSpacing: 1.0,
@@ -98,6 +112,12 @@ class _OtpScreenState extends State<OtpScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Center(
                   child: OTPTextField(
+                    otpFieldStyle: OtpFieldStyle(
+                        errorBorderColor: Colors.red,
+                        focusBorderColor: Colors.white,
+                        borderColor: Colors.white,
+                        disabledBorderColor: Colors.grey,
+                        enabledBorderColor: Colors.white),
                     length: 4,
                     width: MediaQuery.of(context).size.width,
                     fieldWidth: 50,
@@ -110,7 +130,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         globalPin = (pin);
                         // print("globalPin: $globalPin");
                       });
-                      registration(context);
+                      handleVerification(context);
                     },
                     obscureText: true,
                     onChanged: (pin) {
@@ -166,7 +186,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       onTap: () {
                         //  Validate input fields
                         //  Compare the input text to the one provided by the user
-                        registration(context);
+                        handleVerification(context);
                       },
                       child: Container(
                         height: 45,
@@ -203,13 +223,15 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  void registration(BuildContext context) {
+  void handleVerification(BuildContext context) {
     //  Validate input fields
     //  Compare the input text to the one provided by the user
     bool canProceed = isValidInput(context);
     if (canProceed) {
-      registerUser(otpModel: otpModel, context: context);
-      // new UtilityService().showMessage();
+      if(track=='Registration')
+        registerUser(otpModel: otpModel, context: context);
+      if(track=="Reset")
+        goToSetPin(context, otpModel);
     }
   }
 
@@ -293,13 +315,17 @@ class _OtpScreenState extends State<OtpScreen> {
             // Navigator.of(context,rootNavigator: true).pop();
           });
     } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SetPinScreen(
-                    otpModel: otpModel,
-                  )));
+      goToSetPin(context, otpModel);
     }
+  }
+
+  void goToSetPin(BuildContext context, OTPModel otpModel) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SetPinScreen(
+                  otpModel: otpModel,
+                )));
   }
 
   void createOTP({OTPModel dataModel, BuildContext context}) async {

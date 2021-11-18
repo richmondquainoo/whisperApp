@@ -19,6 +19,7 @@ class SetPinScreen extends StatefulWidget {
 
 class _SetPinScreenState extends State<SetPinScreen> {
   final OTPModel otpModel;
+  var profileNameController = TextEditingController();
   var firstPinController = TextEditingController();
   var secondPinController = TextEditingController();
 
@@ -26,6 +27,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
 
   UserDBImplementation dbImplementation = UserDBImplementation();
 
+  String profileName;
   String firstPin;
   String secondPin;
 
@@ -70,7 +72,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
                     // ),
                   ],
                 ),
-                SizedBox(height: 50),
+
                 Padding(
                   padding: const EdgeInsets.only(left: 30, right: 30),
                   child: Column(
@@ -98,7 +100,39 @@ class _SetPinScreenState extends State<SetPinScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 120,
+                      ),
+                      Container(
+                        height: 45,
+                        margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                          // color: Colors.black38,
+                          border: Border.all(
+                              color: Colors.blueAccent, // set border color
+                              width: 0.95), // set border width
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              10.0)), // set rounded corner radius
+                        ),
+                        child: TextField(
+                          // style: TextStyle(color: Colors.white),
+                          obscureText: false,
+                          controller: profileNameController,
+                          onChanged: (value) {
+                           profileName = value;
+                          },
+                          decoration: InputDecoration(
+                            // labelStyle: TextStyle(color: Colors.white),
+                            hintText: 'Enter profile name',
+                            hintStyle: TextStyle(
+                              // color: Colors.white,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       Container(
                         height: 45,
@@ -164,9 +198,6 @@ class _SetPinScreenState extends State<SetPinScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
                         height: 50,
                       ),
                       GestureDetector(
@@ -190,7 +221,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 26,
+                        height: 46,
                       ),
                       TextButtonComponent(
                         label: "Done",
@@ -251,7 +282,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
       phone: otpModel.phone,
       email: otpModel.email,
       loginPin: secondPin,
-      profileName: 'admin',
+      profileName: profileName,
       //add profile name and pic
     );
     await dbImplementation.saveUser(model);

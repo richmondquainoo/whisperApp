@@ -21,7 +21,9 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
   final OTPModel otpModel;
   _FingerprintScreenState({this.otpModel});
 
+  var profileNameController = TextEditingController();
   UserDBImplementation dbImplementation = UserDBImplementation();
+  String profileName;
 
   @override
   void initState() {
@@ -71,7 +73,6 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                     // ),
                   ],
                 ),
-                SizedBox(height: 50),
                 Container(
                   child: Text(
                     "Login using your biometric credentials",
@@ -87,6 +88,42 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+
+                      SizedBox(
+                        height: 85,
+                      ),
+                      Container(
+                        height: 45,
+                        margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                          // color: Colors.black38,
+                          border: Border.all(
+                              color: Colors.blueAccent, // set border color
+                              width: 0.95), // set border width
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              10.0)), // set rounded corner radius
+                        ),
+                        child: TextField(
+                          // style: TextStyle(color: Colors.white),
+                          obscureText: true,
+                          controller: profileNameController,
+                          onChanged: (value) {
+                            profileName = value;
+                          },
+                          decoration: InputDecoration(
+                            // labelStyle: TextStyle(color: Colors.white),
+                            hintText: 'Enter profile name',
+                            hintStyle: TextStyle(
+                              // color: Colors.white,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
                       Container(
                           alignment: Alignment.center,
                           height: 85,
@@ -96,9 +133,6 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                               "assets/images/fingerprint.png",
                             ),
                           )),
-                      SizedBox(
-                        height: 15,
-                      ),
                       Container(
                         child: Text(
                           "Touch your fingerprint sensor",
@@ -112,6 +146,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                         height: 120,
                       ),
                       Container(
+                        alignment: Alignment.bottomCenter,
                         child: Text(
                           "Use your fingerprint for faster access to the chat section",
                           style: GoogleFonts.lato(
@@ -124,29 +159,29 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                         height: 20,
                       ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: TextButtonComponent(
-                          label: "Done",
-                          onTap: () async {
-                            _getAuthentication();
-                            UserProfileModel model = UserProfileModel(
-                              name: otpModel.name,
-                              phone: otpModel.phone,
-                              email: otpModel.email,
-                              fingerPrint: 'Yes',
-                              profileName: 'admin',
-                              //add profile name and pic
-                            );
-                            await dbImplementation.saveUser(model);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SettingsScreen()));
-                          },
-                          labelColor: Colors.blueAccent,
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(20.0),
+                      //   child: TextButtonComponent(
+                      //     label: "Done",
+                      //     onTap: () async {
+                      //       _getAuthentication();
+                      //       UserProfileModel model = UserProfileModel(
+                      //         name: otpModel.name,
+                      //         phone: otpModel.phone,
+                      //         email: otpModel.email,
+                      //         fingerPrint: 'Yes',
+                      //         profileName: 'admin',
+                      //         //add profile name and pic
+                      //       );
+                      //       await dbImplementation.saveUser(model);
+                      //       Navigator.push(
+                      //           context,
+                      //           MaterialPageRoute(
+                      //               builder: (context) => SettingsScreen()));
+                      //     },
+                      //     labelColor: Colors.blueAccent,
+                      //   ),
+                      // ),
                       // Padding(
                       //   padding: const EdgeInsets.all(30.0),
                       //   child: Container(

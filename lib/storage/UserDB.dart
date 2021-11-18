@@ -153,7 +153,35 @@ class UserDB {
         },
       ).first;
     } catch (e) {
-      print('Fetch Error(getUserByEmail): $e');
+      print('Fetch Error(getUserByProfile): $e');
+      return null;
+    }
+  }
+
+  Future<UserProfileModel> getUserByLoginPin(String loginPin) async {
+    try {
+      final Database db = await database;
+
+      // Query the obj
+      final List<Map<String, dynamic>> maps = await db
+          .rawQuery('select * from obj where loginPin=\'$loginPin\' ');
+      return List.generate(
+        maps.length,
+            (i) {
+          return UserProfileModel(
+            id: maps[i]['id'],
+            picture: maps[i]['picture'],
+            profileName: maps[i]['profileName'],
+            name: maps[i]['name'],
+            fingerPrint: maps[i]['fingerPrint'],
+            loginPin: maps[i]['loginPin'],
+            phone: maps[i]['phone'],
+            email: maps[i]['email'],
+          );
+        },
+      ).first;
+    } catch (e) {
+      print('Fetch Error(getUserByLoginPin): $e');
       return null;
     }
   }

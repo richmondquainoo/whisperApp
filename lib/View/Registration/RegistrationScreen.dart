@@ -43,11 +43,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 25,
-                        color: Colors.blueAccent,
+                    GestureDetector(
+                      onTap:(){
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        child: Icon(
+                          Icons.arrow_back_ios_outlined,
+                          size: 25,
+                          color: Colors.blueAccent,
+                        ),
                       ),
                     ),
                     // IconButton(
@@ -336,6 +341,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             MaterialPageRoute(
               builder: (context) => OtpScreen(
                 otpModel: otpModel,
+                track: 'Registration',
               ),
             ),
           );
