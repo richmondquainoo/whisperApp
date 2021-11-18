@@ -12,23 +12,19 @@ import 'package:whisper_badbadoo/Util/Utility.dart';
 import 'package:whisper_badbadoo/Util/paths.dart';
 import 'package:whisper_badbadoo/View/Login/LoginScreen.dart';
 import 'package:whisper_badbadoo/View/Login/SetPin.dart';
-import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
 import 'package:whisper_badbadoo/model/OtpModel.dart';
 
 class OtpScreen extends StatefulWidget {
   final OTPModel otpModel;
-  var togglecall;
-  OtpScreen({this.otpModel, this.togglecall});
+
+  OtpScreen({this.otpModel});
 
   @override
   _OtpScreenState createState() => _OtpScreenState(otpModel: otpModel);
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final OTPModel otpModel;
-
   String globalPin;
 
   _OtpScreenState({this.otpModel});
@@ -171,8 +167,6 @@ class _OtpScreenState extends State<OtpScreen> {
                         //  Validate input fields
                         //  Compare the input text to the one provided by the user
                         registration(context);
-
-
                       },
                       child: Container(
                         height: 45,
@@ -293,14 +287,18 @@ class _OtpScreenState extends State<OtpScreen> {
           buttonText: "Login",
           textColor: Colors.red,
           proceed: () {
-            Navigator.of(context,rootNavigator: true).pop();
+            Navigator.of(context, rootNavigator: true).pop();
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => LoginScreen()));
             // Navigator.of(context,rootNavigator: true).pop();
           });
     } else {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SetPinScreen()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => SetPinScreen(
+                    otpModel: otpModel,
+                  )));
     }
   }
 

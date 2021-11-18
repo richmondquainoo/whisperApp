@@ -4,67 +4,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:whisper_badbadoo/Component/TextButtonComponent.dart';
 import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
+import 'package:whisper_badbadoo/model/OtpModel.dart';
+import 'package:whisper_badbadoo/model/UserProfileModel.dart';
+import 'package:whisper_badbadoo/storage/UserDBImp.dart';
 
 class FingerprintScreen extends StatefulWidget {
+  final OTPModel otpModel;
+  FingerprintScreen({this.otpModel});
+
   @override
-  _FingerprintScreenState createState() => _FingerprintScreenState();
+  _FingerprintScreenState createState() =>
+      _FingerprintScreenState(otpModel: otpModel);
 }
 
 class _FingerprintScreenState extends State<FingerprintScreen> {
-  //variable to check whether biometric is there or not
-  bool _hasBiometricSensor;
-  // list of finger print added in local device settings
-  List<BiometricType> _availableBiometrics;
-  String _isAuthorized = "NOT AUTHORIZED";
-  LocalAuthentication authentication = LocalAuthentication();
-  //future function to check if biometric sensor is available on device
-  Future<void> _checkForBiometric() async {
-    bool hasBiometric;
-    try {
-      hasBiometric = await authentication.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    if (!mounted) return;
-    setState(() {
-      _hasBiometricSensor = hasBiometric;
-    });
-  }
+  final OTPModel otpModel;
+  _FingerprintScreenState({this.otpModel});
 
-//future function to get the list of Biometric or faceID added into device
-  Future<void> _getListofBiometric() async {
-    List<BiometricType> ListofBiometric;
-    try {
-      ListofBiometric = await authentication.getAvailableBiometrics();
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    if (!mounted) return;
-    setState(() {
-      _availableBiometrics = ListofBiometric;
-    });
-  }
-
-  ////future function to check whether the usage of the fingerprint is authorized or no
-  Future<void> _getAuthentication() async {
-    bool isAuthorized = false;
-    try {
-      isAuthorized = await authentication.authenticateWithBiometrics(
-          localizedReason: "SCAN YOUR FINGER PRINT TO GET AUTHORIZED",
-          useErrorDialogs: true,
-          stickyAuth: false);
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    if (!mounted) return;
-    setState(() {
-      _isAuthorized = isAuthorized ? "AUTHORIZED" : "NOT AUTHORIZED";
-    });
-  }
+  UserDBImplementation dbImplementation = UserDBImplementation();
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
     _checkForBiometric();
     _getListofBiometric();
     _getAuthentication();
@@ -167,35 +128,21 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                         padding: const EdgeInsets.all(20.0),
                         child: TextButtonComponent(
                           label: "Done",
-                          onTap: () {
+                          onTap: () async {
                             _getAuthentication();
+                            UserProfileModel model = UserProfileModel(
+                              name: otpModel.name,
+                              phone: otpModel.phone,
+                              email: otpModel.email,
+                              fingerPrint: 'Yes',
+                              profileName: 'admin',
+                              //add profile name and pic
+                            );
+                            await dbImplementation.saveUser(model);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SettingsScreen()));
-                            // bool canProceed = isValidEntries(context);
-                            // if (canProceed) {
-                            //   OTPModel model = OTPModel(
-                            //     // name: fullName,
-                            //     // email: email,
-                            //     // pin: pin,
-                            //   );
-                            //   new UtilityService().confirmationBox(
-                            //       title: 'Confirmation',
-                            //       message: 'Are you sure you want to proceed with the registration?',
-                            //       context: context,
-                            //       color: Colors.blueAccent,
-                            //       onYes: (){
-                            //         Navigator.pop(context);
-                            //         createOTP(
-                            //             context: context, dataModel: model);
-                            //       },
-                            //       onNo: (){
-                            //         Navigator.pop(context);
-                            //       }
-                            //   );
-                            //
-                            // }
                           },
                           labelColor: Colors.blueAccent,
                         ),
@@ -239,5 +186,55 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
         ),
       ),
     );
+  }
+
+  bool _hasBiometricSensor;
+  // list of finger print added in local device settings
+  List<BiometricType> _availableBiometrics;
+  String _isAuthorized = "NOT AUTHORIZED";
+  LocalAuthentication authentication = LocalAuthentication();
+  //future function to check if biometric sensor is available on device
+  Future<void> _checkForBiometric() async {
+    bool hasBiometric;
+    try {
+      hasBiometric = await authentication.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+    setState(() {
+      _hasBiometricSensor = hasBiometric;
+    });
+  }
+
+//future function to get the list of Biometric or faceID added into device
+  Future<void> _getListofBiometric() async {
+    List<BiometricType> ListofBiometric;
+    try {
+      ListofBiometric = await authentication.getAvailableBiometrics();
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+    setState(() {
+      _availableBiometrics = ListofBiometric;
+    });
+  }
+
+  ////future function to check whether the usage of the fingerprint is authorized or no
+  Future<void> _getAuthentication() async {
+    bool isAuthorized = false;
+    try {
+      isAuthorized = await authentication.authenticateWithBiometrics(
+          localizedReason: "SCAN YOUR FINGER PRINT TO GET AUTHORIZED",
+          useErrorDialogs: true,
+          stickyAuth: false);
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+    setState(() {
+      _isAuthorized = isAuthorized ? "AUTHORIZED" : "NOT AUTHORIZED";
+    });
   }
 }

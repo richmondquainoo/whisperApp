@@ -10,10 +10,13 @@ import 'package:whisper_badbadoo/View/PaymentScreen/PaymentScreen.dart';
 import 'package:whisper_badbadoo/View/PrivacySettingScreen/PrivacySettingScreen.dart';
 import 'package:whisper_badbadoo/View/Profile/ProfileScreen.dart';
 import 'package:whisper_badbadoo/View/ThemeSettings/ThemeScreen.dart';
+import 'package:whisper_badbadoo/model/UserProfileModel.dart';
+import 'package:whisper_badbadoo/storage/UserDB.dart';
+import 'package:whisper_badbadoo/storage/UserDBImp.dart';
 
 class SettingsScreen extends StatefulWidget {
-  var togglecall;
-  SettingsScreen({this.togglecall});
+  final toggleCall;
+  SettingsScreen({this.toggleCall});
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -31,6 +34,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
   //   primaryColor: Colors.teal,
   // );
   // bool _light = true;
+
+  UserDBImplementation dbImplementation = UserDBImplementation();
+  UserDB userDB = UserDB();
+  UserProfileModel user;
+  @override
+  void initState() {
+    super.initState();
+    initializeDB();
+  }
+
+  void initializeDB() async {
+    try {
+      await userDB.initialize();
+      getUserInfo();
+    } catch (e) {
+      print('init err: $e');
+    }
+  }
+
+  void getUserInfo() async {
+    UserProfileModel u = await dbImplementation.getByProfileName('admin');
+    setState(() {
+      user = u;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.wb_sunny_rounded),
-            onPressed: widget.togglecall,
+            onPressed: widget.toggleCall,
           ),
         ],
         title: Text(
@@ -87,7 +115,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         //   ),
                         // ),
                         Container(
-                          child: Text("richiequain",
+                          child: Text(
+                              (user != null && user.name != null)
+                                  ? user.name
+                                  : "",
                               style: GoogleFonts.lato(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w500,

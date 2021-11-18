@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -12,11 +11,11 @@ import 'package:whisper_badbadoo/Util/paths.dart';
 import 'package:whisper_badbadoo/View/Login/LoginScreen.dart';
 import 'package:whisper_badbadoo/View/Otp/OtpScreen.dart';
 import 'package:whisper_badbadoo/model/OtpModel.dart';
-
+import 'package:whisper_badbadoo/storage/UserDB.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  var togglecall;
-  RegistrationScreen({this.togglecall});
+  final toggleCall;
+  RegistrationScreen({this.toggleCall});
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
@@ -26,6 +25,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   var phoneController = TextEditingController();
   var emailController = TextEditingController();
 
+  UserDB userDB = UserDB();
   String fullName;
   String email;
   String phone;
@@ -52,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     // IconButton(
                     //   icon: Icon(Icons.wb_sunny_rounded),
-                    //   onPressed: widget.togglecall,
+                    //   onPressed: widget.toggleCall,
                     // ),
                     GestureDetector(
                       onTap: () {
@@ -93,7 +93,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         height: 50,
                       ),
                       Container(
-                        height:45,
+                        height: 45,
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
@@ -119,7 +119,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         height: 10,
                       ),
                       Container(
-                        height:45,
+                        height: 45,
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
@@ -145,7 +145,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         height: 10,
                       ),
                       Container(
-                        height:45,
+                        height: 45,
                         margin: EdgeInsets.all(5),
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
@@ -183,19 +183,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             );
                             new UtilityService().confirmationBox(
                                 title: 'Confirmation',
-                                message: 'Are you sure you want to proceed with the registration?',
+                                message:
+                                    'Are you sure you want to proceed with the registration?',
                                 context: context,
                                 color: Colors.blueAccent,
-                                onYes: (){
+                                onYes: () {
                                   Navigator.pop(context);
-                                  createOTP(
-                                      context: context, dataModel: model);
+                                  createOTP(context: context, dataModel: model);
                                 },
-                                onNo: (){
+                                onNo: () {
                                   Navigator.pop(context);
-                                }
-                            );
-
+                                });
                           }
                         },
                         labelColor: Colors.blueAccent,
@@ -277,7 +275,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     } else {
       return true;
     }
-    return false;
   }
 
   void createOTP({OTPModel dataModel, BuildContext context}) async {
@@ -295,10 +292,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
       print('Response: ${response.body}');
 
-
       Navigator.of(context, rootNavigator: true).pop();
 
-      if(response == null){
+      if (response == null) {
         //error handling
         new UtilityService().showMessage(
           context: context,
@@ -308,7 +304,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             color: Colors.red,
           ),
         );
-      }else{
+      } else {
         // //when there is a response to handle
         // int status = response.statusCode;
         var data = jsonDecode(response.body);
@@ -321,7 +317,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             message: 'An error has occurred. Please try again',
             icon: Icon(
               Icons.error_outline,
-              color:Colors.red,
+              color: Colors.red,
             ),
             context: context,
           );
@@ -335,10 +331,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             // password: passwordController.text,
           );
           print('otp: $otpModel');
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpScreen(otpModel: otpModel,),),);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OtpScreen(
+                otpModel: otpModel,
+              ),
+            ),
+          );
         }
       }
-
     } catch (e) {
       print('postUserData error: $e');
       new UtilityService().showMessage(

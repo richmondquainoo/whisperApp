@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 // import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_svg/svg.dart';
 // import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:whisper_badbadoo/Component/ProgressDialog.dart';
@@ -18,7 +18,6 @@ import 'package:whisper_badbadoo/Util/Utility.dart';
 import 'package:whisper_badbadoo/Util/paths.dart';
 import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
 import 'package:whisper_badbadoo/model/UserProfileModel.dart';
-
 
 class UserProfileDetails extends StatefulWidget {
   @override
@@ -44,7 +43,7 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
     try {
       _hasBioSensor = await authentication.canCheckBiometrics;
 
-      if(_hasBioSensor){
+      if (_hasBioSensor) {
         _getAuth();
       }
       print(_hasBioSensor);
@@ -63,8 +62,9 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
         stickyAuth: true,
       );
 
-      if(isAuth){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsScreen()));
+      if (isAuth) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SettingsScreen()));
       }
 
       print(isAuth);
@@ -115,7 +115,9 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
                       color: Colors.black38),
                 ),
               ),
-              SizedBox(height: 27,),
+              SizedBox(
+                height: 27,
+              ),
               // Form(
               //   key: profileController.formKey,
               //   autovalidateMode: AutovalidateMode.disabled,
@@ -218,13 +220,14 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
                         children: [
                           CircleAvatar(
                             radius: 50,
-                            backgroundImage: imageFile!=null
+                            backgroundImage: imageFile != null
                                 ? FileImage(
-                              File(imageFile.path),
-                              // height: 300.0,
-                              // fit: BoxFit.scaleDown,
-                            )
-                                : AssetImage('assets/images/no_user.jpg') as ImageProvider,
+                                    File(imageFile.path),
+                                    // height: 300.0,
+                                    // fit: BoxFit.scaleDown,
+                                  )
+                                : AssetImage('assets/images/no_user.jpg')
+                                    as ImageProvider,
                           ),
                           Positioned(
                             right: -16,
@@ -239,7 +242,7 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
                                 ),
                                 color: Colors.grey[200],
                                 onPressed: () async {
-                                 _getFromGallery();
+                                  _getFromGallery();
                                   // if (pickedFile != null) {
                                   //   // File croppedFile = await ImageCropper.cropImage(
                                   //   //   sourcePath: pickedFile.path,
@@ -369,13 +372,11 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
                 child: TextButtonComponent(
                   label: "Let's go",
                   onTap: () {
-                  //  Validating input fields
+                    //  Validating input fields
                     bool canProceed = isValidEntries(context);
-                    if(canProceed){
+                    if (canProceed) {
                       UserProfileModel model = UserProfileModel(
-                          profileName: profileName,
-                          setPin: setPin
-                      );
+                          profileName: profileName, loginPin: setPin);
                       createUserProfile(dataModel: model, context: context);
                     }
                   },
@@ -388,6 +389,7 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
       ),
     );
   }
+
   bool isValidEntries(BuildContext context) {
     if (profileNameController.text.length == 0) {
       new UtilityService().showMessage(
@@ -409,13 +411,14 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
         ),
       );
       return false;
-    }else {
+    } else {
       return true;
     }
     return false;
   }
 
-  void createUserProfile({UserProfileModel dataModel, BuildContext context}) async {
+  void createUserProfile(
+      {UserProfileModel dataModel, BuildContext context}) async {
     try {
       showDialog(
         context: context,
@@ -430,10 +433,9 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
 
       print('Response: ${response.body}');
 
-
       Navigator.of(context, rootNavigator: true).pop();
 
-      if(response == null){
+      if (response == null) {
         //error handling
         new UtilityService().showMessage(
           context: context,
@@ -443,7 +445,7 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
             color: Colors.red,
           ),
         );
-      }else{
+      } else {
         // //when there is a response to handle
         // int status = response.statusCode;
         var data = jsonDecode(response.body);
@@ -456,7 +458,7 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
             message: 'An error has occurred. Please try again',
             icon: Icon(
               Icons.error_outline,
-              color:Colors.red,
+              color: Colors.red,
             ),
             context: context,
           );
@@ -464,14 +466,18 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
           print('Body: ${response.body}');
           UserProfileModel model = new UserProfileModel(
             profileName: data['data']['name'],
-            setPin: data['data']['pin'],
+            loginPin: data['data']['pin'],
             // password: passwordController.text,
           );
           print('otp: $model');
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsScreen(),),);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SettingsScreen(),
+            ),
+          );
         }
       }
-
     } catch (e) {
       print('postUserData error: $e');
       new UtilityService().showMessage(
@@ -525,5 +531,4 @@ class _UserProfileDetailsState extends State<UserProfileDetails> {
       // _cropImage(pickedFile.path);
     }
   }
-
 }

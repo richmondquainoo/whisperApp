@@ -1,19 +1,30 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_badbadoo/Component/TextButtonComponent.dart';
 import 'package:whisper_badbadoo/Util/Utility.dart';
 import 'package:whisper_badbadoo/View/Login/FingerprintScreen.dart';
 import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
+import 'package:whisper_badbadoo/model/OtpModel.dart';
+import 'package:whisper_badbadoo/model/UserProfileModel.dart';
+import 'package:whisper_badbadoo/storage/UserDBImp.dart';
 
 class SetPinScreen extends StatefulWidget {
+  final OTPModel otpModel;
+
+  SetPinScreen({this.otpModel});
+
   @override
-  _SetPinScreenState createState() => _SetPinScreenState();
+  _SetPinScreenState createState() => _SetPinScreenState(otpModel: otpModel);
 }
 
 class _SetPinScreenState extends State<SetPinScreen> {
+  final OTPModel otpModel;
   var firstPinController = TextEditingController();
   var secondPinController = TextEditingController();
+
+  _SetPinScreenState({this.otpModel});
+
+  UserDBImplementation dbImplementation = UserDBImplementation();
 
   String firstPin;
   String secondPin;
@@ -183,31 +194,11 @@ class _SetPinScreenState extends State<SetPinScreen> {
                       ),
                       TextButtonComponent(
                         label: "Done",
-                        onTap: () {
+                        onTap: () async {
                           bool canProceed = isValidEntries(context);
                           if (canProceed) {
-                            // OTPModel model = OTPModel(
-                            //   // name: fullName,
-                            //   // email: email,
-                            //   // pin: pin,
-                            // );
-                            new UtilityService().confirmationBox(
-                                title: 'Confirmation',
-                                message:
-                                    'Are you sure you want to always login with this pin?',
-                                context: context,
-                                color: Colors.blueAccent,
-                                onYes: () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SettingsScreen()));
-                                },
-                                onNo: () {
-                                  Navigator.pop(context);
-                                });
+                            //Save user data to local storage
+                            await saveToLocalDB(context);
                           }
                         },
                         labelColor: Colors.blueAccent,
@@ -253,6 +244,32 @@ class _SetPinScreenState extends State<SetPinScreen> {
     );
   }
 
+  Future<void> saveToLocalDB(BuildContext context) async {
+    //Save user data to local storage
+    UserProfileModel model = UserProfileModel(
+      name: otpModel.name,
+      phone: otpModel.phone,
+      email: otpModel.email,
+      loginPin: secondPin,
+      profileName: 'admin',
+      //add profile name and pic
+    );
+    await dbImplementation.saveUser(model);
+    new UtilityService().confirmationBox(
+        title: 'Confirmation',
+        message: 'Are you sure you want to always login with this pin?',
+        context: context,
+        color: Colors.blueAccent,
+        onYes: () {
+          Navigator.pop(context);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SettingsScreen()));
+        },
+        onNo: () {
+          Navigator.pop(context);
+        });
+  }
+
   bool isValidEntries(BuildContext context) {
     if (firstPinController.text.length == 0 ||
         firstPinController.text.length < 4 ||
@@ -291,6 +308,5 @@ class _SetPinScreenState extends State<SetPinScreen> {
     } else {
       return true;
     }
-    return false;
   }
 }

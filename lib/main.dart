@@ -1,23 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:whisper_badbadoo/View/ChatSetting/ChatFontStyleScreen.dart';
-import 'package:whisper_badbadoo/View/Otp/OtpScreen.dart';
-import 'package:whisper_badbadoo/View/Settings/SettingsScreen.dart';
-import 'package:whisper_badbadoo/test.dart';
 
-
-
-import 'View/Login/LoginScreen.dart';
-import 'View/Login/SetPin.dart';
-import 'View/Profile/ProfileScreen.dart';
 import 'View/Registration/RegistrationScreen.dart';
-import 'View/UserProfileDetails/UserProfileDetailsScreen.dart';
 
 void main() {
   runApp(ChatApp());
 }
+
 class ChatApp extends StatefulWidget {
   // int thememode = 1;
   //
@@ -58,9 +47,8 @@ class ChatApp extends StatefulWidget {
 }
 
 class _ChatAppState extends State<ChatApp> {
-
   static final ValueNotifier<ThemeMode> themeNotifier =
-  ValueNotifier(ThemeMode.light);
+      ValueNotifier(ThemeMode.light);
 
   int thememode = 1;
 
@@ -69,64 +57,60 @@ class _ChatAppState extends State<ChatApp> {
     // TODO: implement initState
     super.initState();
   }
-  starting()async{
+
+  starting() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    if(pref.getInt("thememode")!=null ){
+    if (pref.getInt("thememode") != null) {
       thememode = pref.getInt("thememode");
-    }else{
-      pref.setInt("thememode", thememode );
+    } else {
+      pref.setInt("thememode", thememode);
     }
-    setState(() {
-
-    });
-
+    setState(() {});
   }
-  toggletheme()async{
+
+  toggletheme() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    if(pref.getInt("thememode")==1 ){
-      pref.setInt("thememode", 0 );
+    if (pref.getInt("thememode") == 1) {
+      pref.setInt("thememode", 0);
       thememode = 0;
-    }else{
-      pref.setInt("thememode", 1 );
+    } else {
+      pref.setInt("thememode", 1);
       thememode = 1;
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:SettingsScreen(
-        // togglecall: toggletheme,
-      ),
+      home: RegistrationScreen(),
       theme: ThemeData(
-        primaryColor: Colors.blueAccent,
-        cardColor: Colors.lightBlueAccent,
-        inputDecorationTheme: InputDecorationTheme(
-          fillColor: Colors.white,
-          labelStyle: TextStyle(
-            color: Colors.black,
-          )
-        )
-        // inputDecorationTheme: InputDecorationTheme(
-        //   labelStyle: TextStyle(
-        //     color: Colors.black
-        //   ),
-        // ),
+          primaryColor: Colors.blueAccent,
+          cardColor: Colors.lightBlueAccent,
+          inputDecorationTheme: InputDecorationTheme(
+              fillColor: Colors.white,
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ))
+          // inputDecorationTheme: InputDecorationTheme(
+          //   labelStyle: TextStyle(
+          //     color: Colors.black
+          //   ),
+          // ),
 
           ),
-    darkTheme: ThemeData.dark().copyWith(
-      dialogTheme: DialogTheme(backgroundColor: Colors.white,),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle:TextStyle(
-        color: Colors.white,
+      darkTheme: ThemeData.dark().copyWith(
+        dialogTheme: DialogTheme(
+          backgroundColor: Colors.white,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(
+            color: Colors.white,
           ),
-        // hintStyle: TextStyle(color: Colors.white)
-      ),
-         // hintColor: Colors.black,
+          // hintStyle: TextStyle(color: Colors.white)
+        ),
+        // hintColor: Colors.black,
         brightness: Brightness.dark,
         primaryIconTheme: IconThemeData(
           color: Colors.white,
@@ -141,13 +125,10 @@ class _ChatAppState extends State<ChatApp> {
         //   buttonColor: Colors.white,
         // ),
         textTheme: TextTheme(
-        title: TextStyle(color: Colors.white),
+            // title: TextStyle(color: Colors.white),
+            ),
       ),
-          ),
-
-
-    themeMode: thememode==1? ThemeMode.dark:ThemeMode.light,
+      themeMode: thememode == 1 ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }
-
