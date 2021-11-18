@@ -95,14 +95,16 @@ class _ChatAppState extends State<ChatApp> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home:SettingsScreen(
-        // togglecall: toggletheme,
+        togglecall: toggletheme,
       ),
       theme: ThemeData(
+
         primaryColor: Colors.blueAccent,
         cardColor: Colors.lightBlueAccent,
         inputDecorationTheme: InputDecorationTheme(

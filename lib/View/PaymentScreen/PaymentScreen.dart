@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_badbadoo/Component/TextButtonComponent.dart';
@@ -157,6 +158,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
                 child: Center(
                   child: TextField(
+                    keyboardType: TextInputType.phone,
                     // style: TextStyle(color: Colors.white),
                     obscureText: true,
                     controller: addNumberController,
@@ -182,106 +184,318 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 height: 26,
               ),
               Container(
-                height: 170,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.black12,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                height: 150,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            child: Icon(
-                              Icons.credit_card_rounded,
-                              size: 42,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            child: Text(
-                              "Mobile money",
-                              style: GoogleFonts.lato(
-                                  fontSize: 16, fontWeight: FontWeight.w300),
-                            ),
-                          ),
-                        ],
+                    Container(
+                      height: 170,
+                      width: MediaQuery.of(context).size.width*0.73,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.black12,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 14.0, right: 14),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            child: Image(
-                              image: AssetImage('assets/images/mtn.png'),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              width: 260,
-                              margin: EdgeInsets.all(5),
-                              padding: EdgeInsets.only(left: 20),
-                              decoration: BoxDecoration(
-                                // color: Colors.black38,
-                                border: Border.all(
-                                    color: Colors.blueAccent, // set border color
-                                    width: 0.95), // set border width
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    10.0)), // set rounded corner radius
-                              ),
-                              child: Center(
-                                child: TextField(
-                                  // style: TextStyle(color: Colors.white),
-                                  obscureText: true,
-                                  controller: myNumberController,
-                                  onChanged: (value) {
-                                    myNumber = value;
-                                  },
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.add,
-                                      size: 22,
-                                    ),
-                                    // labelStyle: TextStyle(color: Colors.white),
-                                    // hintStyle: TextStyle(
-                                    //   color: Colors.white,
-                                    // ),
-                                    hintText: 'Enter Number',
-                                    border: InputBorder.none,
+                          Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.credit_card_rounded,
+                                    size: 42,
                                   ),
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  child: Text(
+                                    "Mobile money",
+                                    style: GoogleFonts.lato(
+                                        fontSize: 16, fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Container(
-                            child: Icon(
-                              Icons.check_circle,
-                              size: 20,
-                              color: Colors.green,
+
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 30,
+                                  child: Image(
+                                    image: AssetImage('assets/images/mtn.png'),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 50,
+                                    // width: 90,
+                                    margin: EdgeInsets.all(5),
+                                    padding: EdgeInsets.only(left: 10),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.black38,
+                                      border: Border.all(
+                                          color: Colors.blueAccent, // set border color
+                                          width: 0.95), // set border width
+                                      borderRadius: BorderRadius.all(Radius.circular(
+                                          10.0)), // set rounded corner radius
+                                    ),
+                                    child: Center(
+                                      child: TextField(
+                                        keyboardType: TextInputType.number,
+                                        // style: TextStyle(color: Colors.white),
+                                        obscureText: true,
+                                        controller: myNumberController,
+                                        onChanged: (value) {
+                                          myNumber = value;
+                                        },
+                                        decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.add,
+                                            size: 22,
+                                          ),
+                                          // labelStyle: TextStyle(color: Colors.white),
+                                          // hintStyle: TextStyle(
+                                          //   color: Colors.white,
+                                          // ),
+                                          hintText: 'Enter Number',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    size: 20,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
+                    SizedBox(width: 8,),
+                    Container(
+                      height: 170,
+                      width: MediaQuery.of(context).size.width*0.73,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.black12,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.credit_card_rounded,
+                                    size: 42,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  child: Text(
+                                    "Mobile money",
+                                    style: GoogleFonts.lato(
+                                        fontSize: 16, fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
 
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 30,
+                                  child: Image(
+                                    image: AssetImage('assets/images/voda.png'),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 50,
+                                    // width: 90,
+                                    margin: EdgeInsets.all(5),
+                                    padding: EdgeInsets.only(left: 10),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.black38,
+                                      border: Border.all(
+                                          color: Colors.blueAccent, // set border color
+                                          width: 0.95), // set border width
+                                      borderRadius: BorderRadius.all(Radius.circular(
+                                          10.0)), // set rounded corner radius
+                                    ),
+                                    child: Center(
+                                      child: TextField(
+                                        keyboardType: TextInputType.number,
+                                        // style: TextStyle(color: Colors.white),
+                                        obscureText: true,
+                                        controller: myNumberController,
+                                        onChanged: (value) {
+                                          myNumber = value;
+                                        },
+                                        decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.add,
+                                            size: 22,
+                                          ),
+                                          // labelStyle: TextStyle(color: Colors.white),
+                                          // hintStyle: TextStyle(
+                                          //   color: Colors.white,
+                                          // ),
+                                          hintText: 'Enter Number',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    size: 20,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 8,),
+                    Container(
+                      height: 170,
+                      width: MediaQuery.of(context).size.width*0.73,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.black12,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Icon(
+                                    Icons.credit_card_rounded,
+                                    size: 42,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  child: Text(
+                                    "Mobile money",
+                                    style: GoogleFonts.lato(
+                                        fontSize: 16, fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 30,
+                                  child: Image(
+                                    image: AssetImage('assets/images/airtel.jpg'),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 50,
+                                    // width: 90,
+                                    margin: EdgeInsets.all(5),
+                                    padding: EdgeInsets.only(left: 10),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.black38,
+                                      border: Border.all(
+                                          color: Colors.blueAccent, // set border color
+                                          width: 0.95), // set border width
+                                      borderRadius: BorderRadius.all(Radius.circular(
+                                          10.0)), // set rounded corner radius
+                                    ),
+                                    child: Center(
+                                      child: TextField(
+                                        keyboardType: TextInputType.number,
+                                        // style: TextStyle(color: Colors.white),
+                                        obscureText: true,
+                                        controller: myNumberController,
+                                        onChanged: (value) {
+                                          myNumber = value;
+                                        },
+                                        decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.add,
+                                            size: 22,
+                                          ),
+                                          // labelStyle: TextStyle(color: Colors.white),
+                                          // hintStyle: TextStyle(
+                                          //   color: Colors.white,
+                                          // ),
+                                          hintText: 'Enter Number',
+                                          border: InputBorder.none,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Icon(
+                                    Icons.check_circle,
+                                    size: 20,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 40,),
               Padding(
                 padding: const EdgeInsets.all(38.0),
                 child: TextButtonComponent(
