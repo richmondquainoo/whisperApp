@@ -78,39 +78,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ],
                       ),
                     ),
-                    // SizedBox(width: 10,),
-                    // Container(
-                    //   height: 200,
-                    //   width: 170,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(20),
-                    //     color: Colors.black12,
-                    //   ),
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Container(
-                    //         child: Icon(
-                    //           Icons.credit_card_rounded,
-                    //           size: 42,
-                    //         ),
-                    //       ),
-                    //       SizedBox(height: 10,),
-                    //       Container(
-                    //         child: Text(
-                    //           "Mobile money",
-                    //           style: GoogleFonts.lato(
-                    //               fontSize: 16, fontWeight: FontWeight.w300),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
               SizedBox(
-                height: 26,
+                height: 36,
               ),
               DropdownButton(
                 hint: _dropDownValue == null
@@ -181,7 +153,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
               ),
               SizedBox(
-                height: 26,
+                height: 60,
               ),
               Container(
                 height: 150,
@@ -496,6 +468,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ],
                 ),
               ),
+              SizedBox(height: 50,),
               Padding(
                 padding: const EdgeInsets.all(38.0),
                 child: TextButtonComponent(
