@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:whisper_badbadoo/Component/ListTileMenuComponent.dart';
-import 'package:whisper_badbadoo/Util/Utility.dart';
 import 'package:whisper_badbadoo/View/LandingScreen/EventScreen.dart';
 import 'package:whisper_badbadoo/View/LandingScreen/FireScreen.dart';
 import 'package:whisper_badbadoo/View/LandingScreen/MedicalScreen.dart';
@@ -22,6 +25,8 @@ class _LandingScreenState extends State<LandingScreen> {
   UserDBImplementation dbImplementation = UserDBImplementation();
   UserDB userDB = UserDB();
   UserProfileModel user;
+  String base64Encoded;
+  File imageFile;
   @override
   void initState() {
     super.initState();
@@ -42,6 +47,22 @@ class _LandingScreenState extends State<LandingScreen> {
     setState(() {
       user = u;
     });
+    setProfilePicture();
+  }
+
+  void setProfilePicture() async {
+    try {
+      if (user.picture != null) {
+        base64Encoded = user.picture;
+        final decodedBytes = base64Decode(base64Encoded);
+        final directory = await getApplicationDocumentsDirectory();
+        var file = File("${directory.path}/profile.png");
+        file.writeAsBytesSync(decodedBytes);
+        imageFile = file;
+      }
+    } catch (e) {
+      print('setProfilePicture err: $e');
+    }
   }
 
   @override
@@ -59,21 +80,22 @@ class _LandingScreenState extends State<LandingScreen> {
                   children: <Widget>[
                     DrawerHeader(
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.centerRight,
-                              colors: [
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.centerRight,
+                          colors: [
                             Colors.blueAccent,
                             Colors.black12,
-                          ])),
+                          ],
+                        ),
+                      ),
                       child: Container(
                         height: 70,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/images/man.jpg'),
+                              backgroundImage: displayProfilePicture(),
                               radius: 25,
                             ),
                             SizedBox(
@@ -84,9 +106,9 @@ class _LandingScreenState extends State<LandingScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                (user != null && user.profileName != null)
-                                ? user.profileName
-                                : "user",
+                                  (user != null && user.profileName != null)
+                                      ? user.profileName
+                                      : "user",
                                   style: GoogleFonts.lato(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w600,
@@ -127,7 +149,10 @@ class _LandingScreenState extends State<LandingScreen> {
                       icon: Icons.settings,
                       label: 'Settings',
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SettingsScreen()));
                       },
                     ),
                     ListTileMenuComponent(
@@ -220,7 +245,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     ),
                     Container(
                       child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/images/man.jpg"),
+                        backgroundImage: displayProfilePicture(),
                         radius: 24,
                       ),
                     ),
@@ -432,5 +457,11 @@ class _LandingScreenState extends State<LandingScreen> {
         ),
       ),
     );
+  }
+
+  Object displayProfilePicture() {
+    return imageFile != null
+        ? FileImage(imageFile)
+        : AssetImage('assets/images/no_user.jpg');
   }
 }
